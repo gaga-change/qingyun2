@@ -1,0 +1,51 @@
+<!--
+    1.copy
+        angular.copy(被拷贝的对象,目标对象)
+        如果不写目标对象,则返回一个目标对象
+    2.extend
+        angular.extend(目标对象,父对象1,父对象2......)
+    3.for.forEach
+        angular.forEach()遍历
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp">
+<div ng-controller='firstController'>
+    {{person}}
+</div>
+
+</body>
+<script src="angular.js"></script>
+<script>
+    angular
+            .module('myApp', [])
+            .controller('firstController', function ($scope) {
+                $scope.person = {
+                    name: '小明',
+                    age: 20
+                };
+                $scope.gaga = {
+                    name,
+                    sex: 'man'
+                };
+                //copy
+                angular.copy($scope.person.name, $scope.gaga.name);
+                console.log($scope.gaga);
+                console.log('--------------------------------------');
+                $scope.man = {name: 'dong'};
+                $scope.info = {age: 23, sex: 'man'};
+                angular.extend($scope.man, $scope.info);
+                console.log($scope.man);
+                console.log('--------------------------------------');
+                $scope.arr = ['小刚', '小玉', '小星', '小涛'];
+                angular.forEach($scope.arr, function (ele, index, array) {
+                    console.log(ele, index);
+                })
+            })
+
+</script>
+</html>

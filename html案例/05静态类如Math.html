@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <style type="text/css">
+    </style>
+
+</head>
+<body>
+ul>(li>a{$})*5
+div+p
+</body>
+<script type="text/javascript">
+    //    function MyMath () {
+    //        this.random=function (min, max) {
+    //            if(min>max)min=(max+(max=min)-min);
+    //            return (max-min)*Math.random()+min;
+    //        };
+    //    }
+    MyMath = {
+        random: function (min, max) {
+            min = parseFloat(min);
+            max = parseFloat(max);
+            if (min > max)min = (max + (max = min) - min);
+            return (max - min) * Math.random() + min;
+        }
+    };
+
+    console.log(MyMath.random);
+    //    setInterval(function () {
+    console.log(MyMath.random(-1, 3));
+    //    },10);
+</script>
+</html>

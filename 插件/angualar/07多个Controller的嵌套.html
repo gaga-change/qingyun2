@@ -1,0 +1,70 @@
+<!--
+    总结:
+        1.controller其实就是 拷贝 模型下的scope进行自己的操作
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-init="age=12">
+
+<!--另个Controller属于上下级关系-->
+
+<div ng-controller="firstController">
+    <button ng-click="mine.changeVal()">点我改变</button>
+    <div ng-controller="childController">
+        <button ng-click="mine.changeVal()">点我改变</button>
+        {{mine.name}}
+    </div>
+</div>
+<hr>
+<!--另个Controller属于平级级关系-->
+
+<div ng-controller="firstController">
+    <button ng-click="mine.changeVal()">点我改变</button>
+</div>
+<div ng-controller="childController">
+    <button ng-click="mine.changeVal()">点我改变</button>
+    {{mine.name}}
+</div>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular
+            .module("myApp", [])
+            .controller('firstController', function ($scope) {
+                $scope.age=11;
+                $scope.first = "我当前controller下自己附加的scope";
+                $scope.mine = {
+                    name: 'yan',
+                    changeVal: function () {
+                        console.log(this.name);
+                    }
+                }
+            })
+            .controller('childController', function ($scope) {
+                /**
+                 * 会打印两次
+                 *      嵌套时:11;
+                 *      平级时:12;
+                 */
+                console.log("firstController:" + $scope.age);
+                /**
+                 * 会打印两次
+                 *     嵌套时:是可以拿到first
+                 *     平级时:undefined
+                 */
+                console.log("childController:" + $scope.first);
+                $scope.mine = {
+                    name: 'dong',
+                    changeVal: function () {
+                        console.log(this.name);
+                    }
+                }
+            });
+</script>
+</html>

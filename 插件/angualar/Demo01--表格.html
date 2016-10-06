@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../package/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="../package/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../package/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="angular.js"></script>
+    <!--<script type="text/javascript" src="../package/dong.js"></script>-->
+    <title>title</title>
+    <style type="text/css">
+
+        .theme th {
+            cursor: pointer;
+        }
+
+        .theme a {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body ng-app="myApp">
+
+<div class="container">
+    <h1 class="text-center"> 列表 </h1><br>
+    <form class="row  form form-inline" action="">
+        <div class="checkbox col-sm-2 popover-content" ><label ><input type="checkbox" id="name"> 姓名</label></div>
+        <div class="checkbox col-sm-2 popover-content "><label ><input type="checkbox" id="age"> 年龄</label></div>
+        <div class="checkbox col-sm-2 popover-content"><label><input type="checkbox" id="sex"> 性别</label></div>
+        <div class="form-group col-sm-6  ">
+            <lebel class="sr-only" for="search">search</lebel>
+            <div class="input-group col-sm-12  ">
+                <input class="form-control" type="text" id="search" placeholder="筛选 请勾选要筛选的列(默认全部)">
+                <span class="input-group-btn">
+                    <button class="btn btn-info "><span class="glyphicon glyphicon-search"></span>
+                </button>
+                </span>
+            </div>
+
+        </div>
+    </form>
+    <table class="table table-striped table-hover" ng-controller="firstController">
+        <tr class="theme" data-id="themes">
+            <th ng-repeat="x in th" width="33.3%">
+                <a>{{x}}<span class="hidden caret" style="transition: transform 1s"></span> </a>
+            </th>
+        </tr>
+        <tr ng-repeat="x in data | orderBy : order  | filter : 'c'">
+            <td ng-repeat="val in x">
+                {{val}}
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script>
+    var changeFn = '';
+    /**
+     * 实现点击(name ,age ,sex)
+     *   1.如果没有三角符号
+     *      出现三角符号,默认朝下
+     *      取消其它的三角
+     *   2.如果已经有三角符号
+     *      更改方向
+     * 状态改变
+     *    ng-orderBy的值改变
+     *
+     */
+    var STATE_NONE = 0;
+    var STATE_UP = 1;
+    var STATE_DOWN = -1;
+    var state = {
+        '姓名': STATE_NONE,
+        '年龄': STATE_NONE,
+        '性别': STATE_NONE
+    };
+    $('[data-id=themes]').on('click', 'a', function (e) {
+//        console.log(state);
+        var t = $(e.target);
+//        console.log(t);
+//        console.log(t.closest('th').siblings())
+        var s = state[t[0].innerText];
+
+        var orderAtr = '';
+        switch (t[0].innerText) {
+            case '姓名':
+                orderAtr = 'name';
+                break;
+            case '年龄':
+                orderAtr = 'age';
+                break;
+            case '性别':
+                orderAtr = 'sex';
+                break;
+        }
+        console.log(orderAtr);
+        //如果没有三角,
+        if (s == STATE_NONE) {
+            //显示三角形
+            t.find('.caret').removeClass('hidden');
+            //都变初值  --状态 & 样式
+            //三角形都变为朝下
+            t.closest('th').siblings().find('.caret').css({
+                transform: 'rotate(' + 0 + 'deg)'
+            });
+            //三角形都隐藏
+            t.closest('th').siblings().find('.caret').addClass('hidden');
+            //状态都变为初值
+            for (var i in state) {
+                state[i] = STATE_NONE;
+            }
+            //更改状态
+            state[t[0].innerText] = STATE_DOWN;
+        } else {
+            //如果是有三角的
+
+            //更改状态
+            //转换方向
+            var angle = 0;
+            if (s == STATE_UP) {
+                state[t[0].innerText] = STATE_DOWN;
+            } else {
+                state[t[0].innerText] = STATE_UP;
+                orderAtr = '-' + orderAtr;
+                angle = 180;
+            }
+            t.find('.caret').css({
+                transform: 'rotate(' + angle + 'deg)'
+            });
+        }
+        console.log("根据它排序:" + orderAtr);
+        changeFn(orderAtr);
+    });
+
+</script>
+<script>
+    /**
+     * 筛选
+     *  1。
+     *  2.获取当前选中的列名
+     *  3.获取文本框的内容
+     *
+     */
+</script>
+<script type="text/javascript">
+    angular.module('myApp', [])
+            .controller('firstController', function ($scope) {
+                var data = JSON.parse(getDate());
+                console.log(data);
+                $scope.th = ['姓名', '年龄', '性别'];
+                $scope.data = data;
+                $scope.order = ' ';
+                function change(str) {
+                    $scope.$apply(function () {
+                        $scope.order = str;
+                    });
+                }
+
+                changeFn = change;
+            });
+    function getDate() {
+        var arr = [
+            new Man('dong', 21, '男'),
+            new Man('yan', 22, '男'),
+            new Man('chu', 20, '女'),
+            new Man('cheng', 38, '男')
+        ];
+        return JSON.stringify(arr);
+    }
+    function Man(name, age, sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
+</script>
+</html>

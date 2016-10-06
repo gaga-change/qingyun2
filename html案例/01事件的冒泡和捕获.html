@@ -1,0 +1,55 @@
+<!--
+    addEventListener的第三个参数
+    event的一些属性和方法的测试
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+
+<div>
+    <p>这是一段话，这里有个<strong>加粗字体</strong>。</p>
+</div>
+
+<div data-id="a" style="width: 400px;height: 400px;background-color: black;">
+    <div data-id="b" style="width: 100px;height: 100px;background-color: yellow;">
+        <div data-id="c" style="width: 20px;height: 40px;background-color: red;">
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+    //    document.addEventListener('click', function(e){
+    //        console.log(e.target.tagName);
+    //        console.log(e.currentTarget);
+    //    }, false);
+    var a = document.querySelector("[data-id='a']");
+    var b = document.querySelector("[data-id='b']");
+    var c = document.querySelector("[data-id='c']");
+
+    a.addEventListener('click', function (e) {
+        console.log("---------a----------");
+        console.log(e.target);
+        console.log(e.currentTarget);
+    }, true);
+    b.addEventListener('click', function (e) {
+        console.log("---------b----------");
+        console.log(e.target);
+        console.log(e.currentTarget);
+//        e.stopPropagation();
+    }, false);
+    c.addEventListener('click', function (e) {
+        console.log("---------c----------");
+        console.log(e.target);
+        console.log(e.currentTarget);
+//        e.stopPropagation();
+    }, false);
+</script>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贪吃蛇</title>
+    <meta name="">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+        .container{
+            min-width:430px;
+            min-height: 700px;
+            margin: 0 auto;
+        }
+        .canvas-group {
+            position: relative;
+            /*width: 100%;*/
+            /*padding: 20px;*/
+            margin: 20px auto;
+            border: 1px solid #00ffcc;
+        }
+
+        .canvas-group canvas {
+            position: absolute;
+        }
+
+        .control {
+            text-align: center;
+        }
+
+        .control > button {
+            padding: 4px 6px;
+            margin: 4px 10px;
+            background-color: AliceBlue;
+            border: 1px solid #737373;
+        }
+
+        .control > button:hover {
+            border: 1px solid #deffdf;
+            color: #00cc99;
+        }
+
+        .control > button:active {
+            background-color: #00cc99;
+            outline: 1px solid #9999cc;
+            color: #0f0f0f;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container" data-id="container" style="background-color: #deffdf;">
+    <h1>贪吃蛇</h1>
+    <h2 data-id="score">0</h2>
+    <div class="canvas-group" data-id="canvas-group">
+        <canvas class="map" data-id="map-canvas"  ></canvas>
+        <canvas class="snake" data-id="snake-canvas" ></canvas>
+        <canvas class="fruit" data-id="fruit-canvas" ></canvas>
+    </div>
+    <div class="control" data-id="control">
+        <button type="button" id="up">上</button>
+        <br>
+        <button type="button" id="left">左</button>
+        <button type="button" id="right">右</button>
+        <br>
+        <button type="button" id="down">下</button>
+    </div>
+
+    <div style="text-align: center;margin-top: 40px">
+        <button type="button" id="start" data-id="status" style="padding: 10px 20px;">开始</button>
+    </div>
+</div>
+</body>
+<script>
+    "use strict";
+    var SNAKE_HEAD = 1;
+    var SNAKE_BODY = 2;
+    var UP = -1;
+    var DOWN = 1;
+    var LEFT = -2;
+    var RIGHT = 2;
+    var GAME_OVER = 0;
+    var RUNNING = 1;
+    var READY = 2;
+    var NO_READY = -1;
+    var MD = {};
+    var B = {};
+    var nowDir; //当前方向
+    var nextDir; //下次方向
+    var grids = [];//map的映射,所有的格子信息
+    var snakes = [];//存放蛇的位置信息
+    var fruits = [];//存放果实的位置信息
+    var t = 1000;//时间间隔
+    var score;//分数
+    var status = NO_READY;//游戏状态
+    var color = {};
+    var mapC = document.querySelector("[data-id=map-canvas]");
+    var snakeC = document.querySelector("[data-id=snake-canvas]");
+    var fruitC = document.querySelector("[data-id=fruit-canvas]");
+    var scoreDom = document.querySelector("[data-id=score]");
+    var statusDom = document.querySelector("[data-id=status]");
+    var canvasGroup = document.querySelector("[data-id=canvas-group]");
+    var container = document.querySelector("[data-id=container]");
+    var cxt_map = mapC.getContext("2d");
+    var cxt_snake = snakeC.getContext("2d");
+    var cxt_fruit = fruitC.getContext("2d");
+    var control = document.querySelector("[data-id=control]");
+    (function () {
+        changeSize();
+    })();
+    /**
+     * 坐标类
+     * @param x
+     * @param y
+     * @constructor
+     */
+    function Point(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    Point.prototype = {
+//        setGrids: function (arr, value) {
+//            arr[this.x][this.y] = value;
+//        },
+        getNext: function (dir) {
+            switch (dir) {
+                case UP:
+                    return new Point(this.x, this.y - 1);
+                case DOWN:
+                    return new Point(this.x, this.y + 1);
+                case RIGHT:
+                    return new Point(this.x + 1, this.y);
+                case LEFT:
+                    return new Point(this.x - 1, this.y);
+            }
+        }
+    };
+    //    init();
+    function init() {
+        snakes = [];
+        fruits = [];
+        status = READY;
+        score = 0;
+        t = 1000;
+        color.bc = "none";
+        color.head = "black";
+        color.body = "blue";
+        color.fruit = "#cc656b";
+        MD.row = 30;
+        MD.col = 30;
+//        MD.w = 400;
+//        MD.h = 400;
+        nowDir = DOWN;
+        nextDir = DOWN;
+        B.w = MD.w / MD.col;
+        B.h = MD.h / MD.row;
+        snakes.push(new Point(2, 2));
+        snakes.push(new Point(2, 3));
+        snakes.push(new Point(2, 4));
+        snakes.push(new Point(2, 5));
+        snakes.push(new Point(2, 6));
+        snakes.push(new Point(2, 7));
+        snakes.push(new Point(2, 8));
+//        清空所有的canvas
+        clearCanvas();
+//        绘制地图
+        drawMap();
+//        绘制蛇
+        drawSnake();
+//        绘制果子
+        setFruit();
+        setFruit();
+        drawFruit();
+//        分数设置
+        setScore(score);
+    }
+    //    启动引擎
+    engine();
+    //    打开控制器
+    openControl();
+
+    function engine() {
+        again();
+        function again() {
+            setTimeout(function () {
+//                console.log("状态:" + status + "(GAME_OVER = 0;RUNNING = 1;READY = 2;NO_READY=-1;)");
+                if (status == RUNNING) {
+//                    console.log("跳");
+//                更新蛇坐标
+                    updateSnake();
+//                如果游戏结束了
+                    if (status == GAME_OVER) {
+                        scoreDom.innerHTML = "游戏结束";
+//                        init();
+                    } else {
+//                    重绘蛇
+                        drawSnake();
+                    }
+                }
+                again();
+            }, t)
+        }
+    }
+    /**
+     * 清空所有canvas 或指定的canvas
+     */
+    function clearCanvas(cxt) {
+        if (cxt != undefined) {
+            clear(cxt);
+            return;
+        }
+        var arr = [cxt_map, cxt_snake, cxt_fruit];
+        arr.map(function (cxt) {
+            clear(cxt);
+        });
+        function clear(cxt) {
+            cxt.beginPath();
+            cxt.clearRect(0, 0, MD.w, MD.h);
+            cxt.stroke();
+        }
+    }
+    /**
+     * 绘制地图(行线条 和 列线条)
+     */
+    function drawMap() {
+        var cxt = cxt_map;
+        clearCanvas(cxt);
+//        绘制行
+        for (var i = 0; i < MD.row + 1; i++) {
+            cxt.beginPath();
+            cxt.lineWidth = 0.1;
+            cxt.moveTo(0, i * B.h);
+            cxt.lineTo(MD.w, i * B.h);
+            cxt.strokeStyle = "green";
+            cxt.stroke();
+            cxt.closePath();
+        }
+//        绘制列
+        for (var j = 0; j < MD.col + 1; j++) {
+            cxt.beginPath();
+            cxt.lineWidth = 0.1;
+            cxt.moveTo(j * B.w, 0);
+            cxt.lineTo(j * B.w, MD.h);
+            cxt.strokeStyle = "green";
+            cxt.stroke();
+            cxt.closePath();
+        }
+    }
+    /**
+     * 绘制蛇
+     */
+    function drawSnake() {
+        var cxt = cxt_snake;
+        clearCanvas(cxt);
+        snakes.map(function (p, index, self) {
+            if (self.length - 1 != index) {
+                g(p.x, p.y, color.body);
+            } else {
+                g(p.x, p.y, color.head);
+            }
+        });
+        function g(row, col, color) {
+            cxt.beginPath();
+            cxt.fillStyle = color;
+            cxt.fillRect(row * B.h, col * B.w, B.w, B.h);
+            cxt.closePath();
+        }
+    }
+    /**
+     * 绘制果子
+     */
+    function drawFruit() {
+        var cxt = cxt_fruit;
+        clearCanvas(cxt);
+        fruits.map(function (p) {
+            g(p.x, p.y, color.fruit);
+        });
+        function g(row, col, color) {
+            cxt.beginPath();
+            cxt.fillStyle = color;
+            cxt.fillRect(row * B.h, col * B.w, B.w, B.h);
+            cxt.closePath();
+        }
+    }
+    /**
+     * 启动页面上的上下左右按钮 的 点击事件监听
+     */
+    function openControl() {
+        control.addEventListener('click', function (e) {
+            var direction = e.target.id;
+            if (direction == "up") {
+                if (nowDir == UP || nowDir == DOWN)return;
+                nextDir = UP;
+            } else if (direction == "down") {
+                if (nowDir == UP || nowDir == DOWN)return;
+                nextDir = DOWN;
+
+            } else if (direction == "right") {
+                if (nowDir == LEFT || nowDir == RIGHT)return;
+                nextDir = RIGHT;
+
+            } else if (direction == "left") {
+                if (nowDir == LEFT || nowDir == RIGHT)return;
+                nextDir = LEFT;
+            }
+        });
+        statusDom.addEventListener("click", function (e) {
+            init();
+            status = RUNNING;
+        })
+    }
+    /**
+     * 更新蛇的坐标(蛇移动)
+     */
+    function updateSnake() {
+//        1.得到蛇头
+        var head = snakes[snakes.length - 1];
+//        2.获取下个坐标
+        var newHead = head.getNext(nextDir);
+        nowDir = nextDir;
+//        判断新的蛇头是否是自己的身体的一部分(撞到自己)
+        if (contain(snakes, newHead)) {
+            status = GAME_OVER;
+            return;
+        }
+        //判断新的蛇头是否出了地图外(撞墙)
+        if (newHead.x < 0 || newHead.x == MD.col || newHead.y < 0 || newHead.y == MD.row) {
+            status = GAME_OVER;
+            return;
+        }
+//        判断新头是否吃了一个果子
+        if (contain(fruits, newHead)) {
+            t *= 0.9;
+            setScore(++score);
+//            删除当前果子,再产生一个
+            fruits = fruits.filter(function (ele) {
+                return !contain([ele], newHead);
+            });
+            setFruit();
+            drawFruit();
+        } else {
+//          尾巴删除
+            snakes.shift();
+        }
+//        3.新坐标变头,之前的头变身体
+        snakes.push(newHead);
+
+    }
+    /**
+     * 增加分数
+     */
+    function setScore(score) {
+        scoreDom.innerHTML = score;
+    }
+    /**
+     * 设置一个新果子
+     */
+    function setFruit() {
+        while (true) {
+            var x = Math.round(random(0, MD.col - 1));
+            var y = Math.round(random(0, MD.row - 1));
+            var newFruit = new Point(x, y);
+//            判断果子是否和蛇冲突
+//            判断果子是否和已经存在的果子冲突
+            if (contain(snakes, newFruit) || contain(fruits, newFruit)) {
+                continue;
+            }
+            fruits.push(newFruit);
+            break;
+        }
+    }
+
+    /**
+     * 取随机数
+     * @param min
+     * @param max
+     * @returns {*}
+     */
+    function random(min, max) {
+        return (max - min) * Math.random() + min;
+    }
+    function contain(arr, p) {
+        var b = false;
+        arr.map(function (ele) {
+            if (b)return;
+            var temp = true;
+            for (var i in new Point) {
+                if (ele.hasOwnProperty(i)) {
+//                if()
+//                console.log(i);
+                    if (ele[i] != p[i]) {
+                        temp = false;
+                        break;
+                    }
+                }
+            }
+            b = temp;
+        });
+        return b;
+    }
+
+    function changeSize() {
+        //        46:75
+//        1.h/75>=w/46  高有多余
+//        2.h/75<w/46   宽有多余
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+
+        if(h/75>=w/46){
+            h=w/46*75;
+        }else{
+            w=h/75*46;
+        }
+
+        //获取到可用区域的大小
+        container.style.width=w+"px";
+        container.style.height=h+"px";
+        //设置canvas的大小
+        MD.w=w;
+        MD.h=w;
+        canvasGroup.style.width=w+"px";
+        canvasGroup.style.height=w+"px";
+        [fruitC,snakeC,mapC].map(function (ele) {
+            ele.width=w;
+            ele.height=w;
+        });
+
+        B.w = MD.w / MD.col;
+        B.h = MD.h / MD.row;
+        drawMap()
+        drawSnake();
+        drawFruit();
+    }
+    window.onresize = function () {
+        changeSize();
+    };
+    //    console.log(contain([new Point(1, 2),new Point(1,1)], new Point(1, 1)));
+</script>
+</html>

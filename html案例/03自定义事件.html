@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+
+
+</body>
+<script type="text/javascript">
+    /***
+     * 构建自己的事件系统
+     * @constructor
+     */
+    function EventProxy() {
+        this.eventMap = {}; //存放事件
+    }
+
+    EventProxy.prototype={
+        /**
+         * 监听事件类型和回调
+         * 解决多个事件类型的处理
+         */
+        on:function (type, fn) {
+            //第一个数 必须为事件的类型
+            var types=[type];
+            //如果参数大于2个
+            if(arguments.length>2){
+                //取第一个到 倒数第二个
+                types=[].slice.apply(arguments,[0,-1]);
+                //取最后一个元素
+                fn=[].slice.apply(arguments,[-1])[0];
+                //把数组变成字符串
+                type=types.join(",");
+            }
+
+            this.eventMap[type]={type:type,fn:fn,toEmitTypes:types};
+        },
+        remove:function () {
+
+        },
+        /***
+         * 触发事件
+         * @param type
+         */
+        emit:function (type) {
+            //如果只有一个事件的话,直接触发回调
+            if(this.eventMap[type]) {
+                this.eventMap[type].fn();
+            }
+            //多个事件的话,还要另外处理
+            else{
+                var _type;
+                for(_type in this.eventMap){
+                    if (_type.indexOf(type)!=-1){
+                        //把之前放事件的数组拿出来
+                        var toEmitTypes=this.eventMap[_type].toEmitTypes;
+                        var _index = toEmitTypes.indexOf('type ');
+                        //把触发的删了
+                        toEmitTypes.splice(_index, 1);
+                        if (!toEmitTypes.length) {
+                            this.eventMap[_type].fn();
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    var eventProxy = new EventProxy();
+    function getTemplate() {
+        setTimeout(function () {
+            eventProxy.emit('template');
+            console.log('模版存取成功')
+        }, 3000);
+    }
+    function getData() {
+        setTimeout(function () {
+            eventProxy.emit('data');
+            console.log('数据存取成功')
+        }, 5000);
+    }
+    function getI18n() {
+        setTimeout(function () {
+            console.log('语言包存取成功')
+            eventProxy.emit('i18n');
+
+        }, 5000);
+    }
+
+    function compile() {
+        console.log('开始编译...')
+    }
+    getTemplate();
+    getData();
+    getI18n();
+    eventProxy.on('template', 'data', 'i18n', function () {
+        compile();
+    });
+
+</script>
+</html>

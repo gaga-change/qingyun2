@@ -1,0 +1,68 @@
+<!--
+    $rootScope 可以设置全局变量
+
+    依赖注入
+       1.value  值
+       2.factory 工程
+           参数为一个方法,获取返回值
+       3.service 服务
+           是  new fn() 出来的     和factory一样都是获取对象,但方式不一样,一个是自己直接返回,另个是代码帮忙造
+       4.provider 供应
+            可以在config里配置,效果和factory一样,就是目前认为不能用 $http什么的参数,特殊用法在 9.28文件夹内看
+       5.constant  常量
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="angular.js"></script>
+</head>
+<body ng-app="myApp">
+<div ng-controller="myController">
+    <input type="text" ng-model="num">
+    <button ng-click="changeVal()">X<sup>2</sup></button>
+    {{num}}
+</div>
+
+</body>
+<script>
+    angular.module('myApp', [])
+            .value('def', {num: 3})
+            .config(function ($provide) {
+                $provide.provider('MathService', function () {
+                    this.$get = function () {
+                        console.log("config -- ");
+                        var factory = {};
+                        factory.multiply = function (a, b) {
+                            return a * b;
+                        };
+                        return factory;
+                    };
+                });
+            })
+            .factory('MathService', function () {
+                console.log("factory -- ");
+                var myMath = {};
+                myMath.multiply = function (a, b) {
+                    return a * b;
+                };
+                return myMath;
+            })
+            .service('ser', function (MathService) {
+                this.square = function (a) {
+                    return MathService.multiply(a,a);
+                }
+            })
+            .controller('myController', ['$scope', 'def','ser', function ($scope,def,ser) {
+                $scope.num = def.num;
+                $scope.changeVal = function () {
+                    console.log("??")
+                    return $scope.num=ser.square($scope.num);
+                }
+            }]);
+
+
+</script>
+</html>

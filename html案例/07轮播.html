@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        ul {
+            position: relative;
+            left: 0;
+            list-style-type: none;
+            width: 1320px;
+            transition: left 2s;
+        }
+
+        ul:after {
+            content: " ";
+            display: table;
+            clear: both;
+
+        }
+
+        li {
+            float: left;
+        }
+
+        .carousel {
+            position: relative;
+            margin: 40px auto;
+            width: 440px;
+            overflow: hidden;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="carousel" data-id="carousel">
+    <ul data-id="carousel-ul" style="left:0;">
+        <li><img src="../img/carousel_one.jpg" alt=""></li>
+        <li><img src="../img/carousel_two.jpg" alt=""></li>
+        <li><img src="../img/carousel_three.jpg" alt=""></li>
+    </ul>
+</div>
+</body>
+<script>
+    var carouselUl = document.querySelector('[data-id=carousel-ul]');
+    var carousel=document.querySelector('[data-id=carousel]');
+    var imgNum = document.querySelectorAll('[data-id=carousel-ul]>li').length;
+    var ulLength = carouselUl.clientWidth;
+    var nowLeft = 0;
+/*    carousel.addEventListener('mouser',function () {
+       console.log("onmouseup");
+    });
+    carousel.addEventListener('onmouseover',function () {
+        console.log("onmouseover");
+    });*/
+    setInterval(function () {
+        if (nowLeft <=-ulLength + ulLength / imgNum) {
+            nowLeft = 0;
+        } else {
+            nowLeft -= ulLength / imgNum;
+        }
+        carouselUl.style.left = nowLeft + "px";
+    }, 3000);
+</script>
+</html>

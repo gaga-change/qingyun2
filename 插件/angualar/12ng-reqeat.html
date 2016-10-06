@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src='angular.js'></script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body ng-app  ng-init="numArr=['a','b','v','e']">
+<hr>
+写repeat,多个复制,只包括本体 和 子体<br>
+<button  ng-repeat='x in numArr' ng-click='changeVal($odd)'>
+	{{x}}
+
+</button>
+<hr>
+np-repeat-start ng-repeat-end 指令
+复制,从start开始到end之间,包括本体
+<br>
+<button ng-repeat-start="x in numArr | filter : 'b' ">{{x}}</button>
+<div>gaga</div>
+<div ng-repeat-end>嘿嘿</div>
+<hr>
+
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

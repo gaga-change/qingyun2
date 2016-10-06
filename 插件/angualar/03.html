@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp">
+<div ng-controller="test">
+    {{mine.age}}
+    <input type="text" ng-model="mine.age">
+</div>
+<div ng-bind="mine.gender"></div>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module("myApp", [])
+            .controller("test", function ($scope) {
+                $scope.mine = {
+                    age: 1,
+                    gender:4
+                };
+            });
+
+</script>
+</html>

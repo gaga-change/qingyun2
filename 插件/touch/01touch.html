@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>touch的测试</title>
+    <script  src="touch.js"></script>
+</head>
+<body>
+<img id="target" src="../img/ball.jpg" alt="">
+</body>
+<script>
+    touch.on('#target', 'touchstart', function (ev) {
+        ev.preventDefault();
+    });
+    touch.on("#target"," swipeleft",function (ev) {
+       console.log("tap 轻拍");
+    });
+
+
+//    var angle = 0;
+
+//
+//    touch.on('#target', 'rotate', function (ev) {
+//        var totalAngle = angle + ev.rotation;
+//        if (ev.fingerStatus === 'end') {
+//            angle = angle + ev.rotation;
+//        }
+//        this.style.webkitTransform = 'rotate(' + totalAngle + 'deg)';
+//    });
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!--
+    $scope 监听值得变化
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myModule" ng-controller="firstController">
+
+<input type="text" ng-model="mine.name">
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('myModule',[]).controller('firstController',function ($scope) {
+        $scope.mine={
+            name:"yan"
+        };
+        $scope.$watch('mine.name',function (newName, oldName,scope) {
+            console.log("newName:"+newName);
+            console.log("%o",oldName);
+            console.log("%o",scope);
+        })
+    });
+</script>
+</html>

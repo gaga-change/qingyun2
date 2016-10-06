@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src='angular.js'></script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body ng-app='myApp'  ng-controller='firstController'>
+
+<div ng-style='myStyle'></div>
+<div >
+    <p ng-init="x = 2" ng-class='{red : x > 1 ,green :x <=-1}'>测试颜色</p>
+</div>
+
+</body>
+<script type="text/javascript">
+    angular.module('myApp',[])
+        .controller('firstController',['$scope',function ($scope) {
+            $scope.myStyle={background:'red',height:'200px',width:'200px'}
+        }])
+</script>
+</html>

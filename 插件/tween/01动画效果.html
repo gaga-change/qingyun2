@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="tween.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .box{
+            position: relative;
+            margin: 20px 20px;
+            width:600px;
+            height:600px;
+            background-color: AliceBlue;
+        }
+        .ball{
+            position: relative;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: #a4ffa1;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" data-id="box">
+        <div class="ball" data-id="ball"></div>
+    </div>
+</body>
+<script>
+    "use strict";
+    var box=document.querySelector("[data-id=box]");
+    var ball=document.querySelector("[data-id=ball]");
+
+    var x=0;
+    var t=0;
+    var st=setInterval(scroll,10);
+    function scroll() {
+        //x==2
+        /**
+         * t:当前的步数
+         * b:初始值
+         * c:变化值
+         * d:总步数
+         */
+         t++;
+        var b=0;
+        var c=560;
+        var d=100;
+
+//        x=Tween.Cubic.easeInOut(t,b,c,d);
+        x=Tween.Elastic.easeInOut(t,b,c,d);
+        console.log(x);
+        ball.style.left=x+"px";
+        if(t==100)t=-1;
+    }
+</script>
+</html>

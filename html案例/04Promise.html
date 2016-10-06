@@ -1,0 +1,72 @@
+<!--简述promise的简单用法-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+
+<p id="log"></p>
+
+</body>
+<script type="text/javascript">
+    'use strict';
+    var i = 0;
+    function log(data) {
+        console.log('%d %s', ++i, data);
+    }
+    /**
+     *没有用promise的时候是这样的,一层调用一层,用callBack实现
+     */
+    /*
+     function test1(fn) {
+     log("test1");
+     setTimeout(function () {
+     test2(fn)
+     },1000);
+     }
+     function test2(fn) {
+     log("test2");
+     setTimeout(function () {
+     test3(fn);
+     },1000);
+     }
+     function test3(fn) {
+     log("test3");
+     setTimeout(fn,2000);
+     }
+     test1(function () {
+     log("终于执行了");
+     })
+     */
+    /**
+     * 用Promise改进代码
+     * 优点:减小了耦合性,不用把回调函数一层一层地往下传了。
+     *
+     */
+    new Promise(test1).then(function (val) {
+        log("终于执行了,返回给我:"+val);
+    });
+    function test1(resolve, reject) {
+        log("test1");
+        setTimeout(function () {
+            test2(resolve, reject);
+        }, 1000);
+    }
+    function test2(resolve, reject) {
+        log("test2");
+        setTimeout(function () {
+           test3(resolve, reject);
+        }, 1000);
+    }
+    function test3(resolve, reject) {
+        log("test3");
+        setTimeout(function () {
+            resolve("123")
+        }, 2000);
+    }
+</script>
+</html>

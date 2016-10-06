@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小球</title>
+    <style>
+        .box {
+            position: relative;
+            margin: 40px auto;
+            width: 600px;
+            height: 600px;
+            background-color: AliceBlue;
+        }
+
+        .ball {
+            position: relative;
+            left: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            background-color: #33ffcc;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="ball" data-id="ball" >
+
+    </div>
+</div>
+</body>
+<script>
+
+    "use strict";
+    var width=600;
+    var height=600;
+    var ballR=10;
+    var initX=10;
+    var initY=100;
+    function Point(callback) {
+        this._x;
+        this._y;
+        this.callback=callback;
+    }
+    Point.prototype={
+        setX:function (x) {
+            this._x=x;
+            this.callback(this._x,this._y);
+        },
+        setY:function (y) {
+            this._y=y;
+            this.callback(this._x,this._y);
+        },
+        setXY:function (x, y) {
+            this.setX(x);
+            this.setY(y);
+        },
+        getX:function () {
+            return this._x;
+        },
+        getY:function () {
+            return this._y;
+        }
+    };
+    var ball = document.querySelector('[data-id=ball]');
+    console.log(ball);
+    var p=new Point(function (x,y) {
+        ball.style.left=x+"px";
+        ball.style.top=y+"px";
+    });
+    p.setXY(initX,initY);
+//    小球移动区域[w-br,h-br]
+    var xMax=width-2*ballR;
+    var yMax=height-2*ballR;
+    var initAddX=1;
+    var initAddY=3;
+    var addX=initAddX;
+    var addY=initAddY;
+    setInterval(function () {
+        var x=p.getX();
+        var y=p.getY();
+        //xy 加减
+        x+=addX;
+        if(x>=xMax||x<=0)addX=-addX;
+        y+=addY;
+        if(y>=yMax||y<=0)addY=-addY;
+        p.setXY(x,y);
+//        console.log(p.getX()+" "+p.getY());
+    },10);
+    console.log( Point);
+
+</script>
+</html>

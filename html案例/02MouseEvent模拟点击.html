@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+
+<a id="subbtn" href="http://www.baidu.com" target="_blank">下载</a>
+</div>
+<input type="button" id="btn" value="模拟点击下载" />
+<input type="checkbox" id="cb"><label for="cb">多选框</label>
+
+</body>
+
+
+
+<script type="text/javascript">
+    // 这里自定义一个函数来实现模拟点击
+    var sub = document.getElementById("subbtn");
+    var btn = document.getElementById("btn");
+    //通用方法
+    btn.onclick = function(e) {
+        //sub.click();
+        alert(navigator.userAgent)
+        /*if (/msie/i.网易新闻(navigator.userAgent)) //IE
+         {
+         evt = document.createEventObject();
+         sub.fireEvent("onclick",window.event)
+         // sub.click();
+         } else {
+         var e = document.createEvent('MouseEvent');
+         e.initEvent('click', false, false);
+         sub.dispatchEvent(e);
+         }  */
+        if(document.createEvent){ // 支持 DOM 2
+            var e = document.createEvent('MouseEvent');
+            e.initEvent('click', false, false);
+            sub.dispatchEvent(e);
+        }else{ // IE8 及以下
+            var	evt = document.createEventObject();
+            sub.fireEvent("onclick",evt)
+            sub.click();
+        }
+
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,98 @@
+<!--
+    过滤器:
+        1.currency  默认美元符号,可以更改
+        2.date   把Date对象 按照一定格式输出
+        3.filter :  (字符串 或 函数)  --被过滤者为字符串时,会默认把他转为数组
+            一个一个匹配,如果和参数匹配的话(或者返回为true),返回一个新数组
+            数组元素为对象时:把对象也当成一个数组,当然,匹配的话是返回一个对象
+        4.uppercase | lowercase  大小写转换
+        5.number : (数字) 转换为数字,后面带参数为保留的小数个数
+        6.limitTo : (数字)  截取字符串 --正数为从前往后,负数为从后往前
+        7.json 转换为json对象
+        8.orderBy :    排序
+
+    自定义过滤器
+        1.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-init="">
+
+<div ng-controller="firstController">
+    <!--{{today}}-->
+    <!--{{today|date :'yyyy-MM-dd HH:mm:ss'}}-->
+
+    <li ng-repeat="x in arr | orderBy : 'x' " ng-bind="x">
+        <!--{{x | currency:'u'}}-->
+        <!--{{x}}-->
+    </li>
+</div>
+<hr>
+<div ng-controller="filter">
+    {{mine.string | filter:'a'}}
+    {{mine.array | filter:'a'}}
+    <br>
+    <!--{{mine.array2 | filter:isA}}-->
+</div>
+<hr>
+----------------------defineFileter--------------------------
+<div ng-controller="defineFilter">
+    <!--{{mine.name}}-->
+    {{mine.arr | myFilter : mine.f }}
+</div>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('firstController', function ($scope) {
+                $scope.today = new Date();
+//                console.log($scope.today);
+                $scope.today = [1, 3, 2];
+            })
+            .controller('filter', function ($scope, $filter) {
+                $scope.mine = {
+                    string: 'abc',
+                    array: ['a', 'b', 'c'],
+                    array2: [
+                        {name: 'a'},
+                        {name: 'b', age: 'a'},
+                        {name: 'c'}
+                    ]
+                };
+                $scope.isA = function (value, index) {
+//                    console.log(value, index);
+                    if (value.name == 'a')return true;
+                };
+                var test = $filter('filter')($scope.mine.array2, $scope.isA);
+//                console.log(网易新闻);
+            })
+            .controller('defineFilter', function ($scope) {
+                $scope.mine = {
+                    name: 'yan',
+                    arr: [
+                        {name: 'a', age: 14},
+                        {name: 'b', age: 15},
+                        {name: 'c', age: 16},
+                        {name: 'd', age: 17}
+                    ],
+                    f: 15
+                }
+            })
+            .filter('myFilter', function ($rootScope) {
+                return function (obj, str1) {
+                    console.log(obj, str1);
+                    obj=obj.filter(function (value, index) {
+                        if(value.age>str1){
+                            return true;
+                        }else return false;
+                    });
+                    return obj;
+                }
+            })
+</script>
+</html>

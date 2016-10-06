@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../package/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="../package/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../package/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../package/angular.js"></script>
+    <!--<script type="text/javascript" src="../package/dong.js"></script>-->
+    <title>title</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body ng-app='myApp' ng-controller="firstController">
+<div class="container">
+    <!--<div class="new" >-->
+        <!--<div class="media" >-->
+            <!--<a class="media-left col-xs-3" href="#">-->
+                <!--<img class="img-responsive" ng-src="{{data.bodyData[0].imgsrc}}" alt="...">-->
+            <!--</a>-->
+            <!--<div class="media-body col-xs-8">-->
+                <!--<h4 class="media-heading">{{data.bodyData[0].ltitle}}</h4>-->
+                <!--{{data.bodyData[0].source}}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="new" >
+        <div class="media center-block" ng-repeat="src in data.bodyData">
+            <a class="media-left col-xs-3" href="#">
+                <img class="img-responsive" ng-src="{{src.imgsrc}}" alt="...">
+            </a>
+            <div class="media-body col-xs-8">
+                <h4 class="media-heading">{{src.ltitle}}</h4>
+                {{src.source}}
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        <br>
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript">
+    angular.module('myApp', []).controller('firstController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+        $scope.data = {
+            carouselData: new Object(),
+            bodyData: []
+        };
+        $http.get('data.json').success(function (data) {
+//            console.log(data);
+            var arrData = data['gaga'];
+            $scope.data.carouselData = arrData.shift();
+            $scope.data.bodyData = arrData;
+            console.log(arrData[0]);
+        });
+    }])
+
+</script>
+</html>

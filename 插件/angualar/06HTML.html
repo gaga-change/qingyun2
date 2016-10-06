@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .view{
+            width:100px;
+            height:100px;
+            background-color: gray;
+        }
+    </style>
+</head>
+<form ng-app="" name="myForm">
+    Email:
+    <input type="email" name="myAddress" ng-model="text" >
+    <span ng-show="myForm.myAddress.$error.email">不是一个合法的邮箱地址</span>
+</form>
+
+<body ng-app="phoneApp" ng-controller="firstController" >
+
+<div class="view" data-id="view"></div>
+
+<button type="button" ng-click="mine.click()"></button>
+</body>
+<script src="angular.js"></script>
+<script>
+    var view=document.querySelector('[data-id=view]')
+    angular.module('phoneApp',[]).controller("firstController",function ($scope) {
+        $scope.mine={
+            click:oneClick
+        };
+        function oneClick() {
+            console.log("%o",view);
+            view.style.transform='scale(2)';
+        }
+        function twoClick() {
+
+        }
+    })
+
+</script>
+</html>
