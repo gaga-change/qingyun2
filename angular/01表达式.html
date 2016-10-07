@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app ng-init>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="../bower_components/angular/angular.js"></script>
+</head>
+<body>
+<ul>
+    <li>
+        <h3>加减乘除基本运算</h3>
+        <p><span class="text-info">1+1={{1+1}}</span><br>
+            <span class="text-primary">2-3={{2-3}}</span><br>
+            <span class="text-success">3*4={{3*4}}</span><br>
+            <span class="text-warning">4/0={{4/0}}</span></p>
+    </li>
+    <li>
+        <h3>或运算 ||</h3>
+        <p>a||"undefined" =  {{a||'undefined'}}</p>
+    </li>
+    <li>
+        <h3>字符串连接</h3>
+        <p>
+            'Hello'+' World !'  =  {{'Hello'+ ' World !'}}
+        </p>
+    </li>
+    <li>
+        <h3>过滤器 | </h3>
+        <p>
+            '123' | currency   =  {{'123' | currency}}
+        </p>
+    </li>
+</ul>
+</body>
+<script>
+
+</script>
+</html>
