@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="timeExampleModule">
+<head>
+    <meta charset="utf-8">
+    <script src="../angular.js"></script>
+</head>
+<body>
+<div ng-controller="ClockCtrl">
+    {{time.now}}
+</div>
+</body>
+<script type="text/javascript">
+    angular.module('timeExampleModule', []).factory('time', function ($timeout) {
+        var time = {};
+        (function tick() {
+            time.now = new Date().toTimeString();
+            $timeout(tick, 1000);
+        })();
+        return time;
+    }).controller('ClockCtrl', ['$scope','time', function ($scope, time) {
+        $scope.time = time;
+    }]);
+
+</script>
+</html>
