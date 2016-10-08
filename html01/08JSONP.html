@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <!--<script src="/app?myUrl="+myUrl + '&callback= callbackFunc"></script>-->
+</head>
+<body>
+    
+</body>
+<script>
+    getData();
+    function getData() {
+        var script = document.createElement('script');
+        script.type = "text/javascript";
+        var myUrl ="http://c.m.163.com/nc/article/headline/T1348647853363/0-140.html";
+        script.src ="/app?myUrl="+myUrl + '&callback=callbackFunc';
+//        script.src ='/app';
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
+    function callbackFunc(data) {
+        console.log(data['T1348647853363']);
+    }
+</script>
+</html>

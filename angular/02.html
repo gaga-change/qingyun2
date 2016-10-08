@@ -2,15 +2,14 @@
 <html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
-    <title>angular--不懂不懂</title>
+    <title>Title</title>
     <script src="bower_components/angular/angular.js"></script>
     <script src="app.module.js"></script>
-
-    <script src="list/list.module.js"></script>
-    <script src="list/list.component.js"></script>
-
+    <script src="controllers.js"></script>
 </head>
 <body>
-    <list></list>
+    <div ng-controller="StudentList">
+        {{say}}
+    </div>
 </body>
 </html>
