@@ -1,0 +1,27 @@
+<div>
+    <!--<table>-->
+        <!--<tr>-->
+            <!--<th>案例名</th>-->
+        <!--</tr>-->
+        <!--<tr ng-repeat="s in $ctrl.list">-->
+            <!--<td><a href="#!{{s.url}}">{{s.name}}</a></td>-->
+        <!--</tr>-->
+    <!--</table>-->
+    <ul>
+        <li>小案例
+            <ul>
+                <li ng-repeat="l in $ctrl.list  | filter:'/' ">
+                    <a href="#!{{l.url }}">{{l.name}}</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            大案例
+            <ul>
+                <li ng-repeat="l in $ctrl.list | filter:'!/'">
+                    <a href="/{{l.url }}">{{l.name}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

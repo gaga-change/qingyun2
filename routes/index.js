@@ -3,14 +3,9 @@ var router = express.Router();
 var http = require('http');
 
 /* GET home page. */
-router.get('/app', function (req, res, next) {
-    // res.render('index', { title: 'Express' });
+router.all('/getJson', function (req, res, next) {
     var myUrl = req.param('myUrl');
-    var callback = req.param('callback');
-    // console.log(myUrl);
-    // console.log(req.url);
-    // app.request(myUrl);
-    console.log(myUrl);
+    var callback = req.param('callback') | '';
     http.get(myUrl,function (response) {
         // console.log(res);
         response.setEncoding('utf8');
@@ -20,7 +15,7 @@ router.get('/app', function (req, res, next) {
         });
         response.on('end', function () {
             // console.log(data);
-            res.send(callback+'('+data+')' );
+            res.send(data );
         })
     });
 

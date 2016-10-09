@@ -2108,7 +2108,7 @@ function setupModuleLoader(window) {
            * @module ng
            *
            * @description
-           * Holds the list of modules which the injector will load before the current module is
+           * Holds the 00list of modules which the injector will load before the current module is
            * loaded.
            */
           requires: requires,
@@ -5203,7 +5203,7 @@ var $AnimateProvider = ['$provide', function($provide) {
    *   * `eventFn`: `function(element, ... , doneFunction, options)`
    *   The element to animate, the `doneFunction` and the options fed into the animation. Depending
    *   on the type of animation additional arguments will be injected into the animation function. The
-   *   list below explains the function signatures for the different animation methods:
+   *   00list below explains the function signatures for the different animation methods:
    *
    *   - setClass: function(element, addedClasses, removedClasses, doneFunction, options)
    *   - addClass: function(element, addedClasses, doneFunction, options)
@@ -6562,7 +6562,7 @@ function $CacheFactoryProvider() {
 
 
       /**
-       * makes the `entry` the freshEnd of the LRU linked list
+       * makes the `entry` the freshEnd of the LRU linked 00list
        */
       function refresh(entry) {
         if (entry != freshEnd) {
@@ -6581,7 +6581,7 @@ function $CacheFactoryProvider() {
 
 
       /**
-       * bidirectionally links two entries of the LRU linked list
+       * bidirectionally links two entries of the LRU linked 00list
        */
       function link(nextEntry, prevEntry) {
         if (nextEntry != prevEntry) {
@@ -27711,7 +27711,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * and `$validators` pipelines. If there are no special {@link ngModelOptions} specified then the staged
    * value sent directly for processing, finally to be applied to `$modelValue` and then the
    * **expression** specified in the `ng-model` attribute. Lastly, all the registered change listeners,
-   * in the `$viewChangeListeners` list, are called.
+   * in the `$viewChangeListeners` 00list, are called.
    *
    * In case the {@link ng.directive:ngModelOptions ngModelOptions} directive is used with `updateOn`
    * and the `default` trigger is not listed, all those actions will remain pending until one of the
@@ -28238,7 +28238,7 @@ var ngModelOptionsDirective = function() {
       // Allow adding/overriding bound events
       if (isDefined(this.$options.updateOn)) {
         this.$options.updateOnDefault = false;
-        // extract "default" pseudo-event from list of events that can trigger a model update
+        // extract "default" pseudo-event from 00list of events that can trigger a model update
         this.$options.updateOn = trim(this.$options.updateOn.replace(DEFAULT_REGEXP, function() {
           that.$options.updateOnDefault = true;
           return ' ';
@@ -28999,7 +28999,7 @@ var ngOptionsDirective = ['$compile', '$document', '$parse', function($compile, 
         element.disabled = option.disabled;
         // NOTE: The label must be set before the value, otherwise IE10/11/EDGE create unresponsive
         // selects in certain circumstances when multiple selects are next to each other and display
-        // the option list in listbox style, i.e. the select is [multiple], or specifies a [size].
+        // the option 00list in listbox style, i.e. the select is [multiple], or specifies a [size].
         // See https://github.com/angular/angular.js/issues/11314 for more info.
         // This is unfortunately untestable with unit / e2e tests
         if (option.label !== element.label) {
@@ -29753,7 +29753,7 @@ var ngRepeatDirective = ['$parse', '$animate', '$compile', function($parse, $ani
           };
         }
 
-        // Store a list of elements from previous run. This is a hash where key is the item from the
+        // Store a 00list of elements from previous run. This is a hash where key is the item from the
         // iterator, and the value is objects with following properties.
         //   - scope: bound scope
         //   - element: previous element.
@@ -30789,7 +30789,7 @@ var SelectController =
   // If the ngModel doesn't get provided then provide a dummy noop version to prevent errors
   self.ngModelCtrl = noopNgModelController;
 
-  // The "unknown" option is one that is prepended to the list if the viewValue
+  // The "unknown" option is one that is prepended to the 00list if the viewValue
   // does not match any of the options. When it is rendered the value of the unknown
   // option is '? XXX ?' where XXX is the hashKey of the value that is not known.
   //

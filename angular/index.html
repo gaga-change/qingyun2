@@ -3,14 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>angular--不懂不懂</title>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="app.module.js"></script>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
 
-    <script src="list/list.module.js"></script>
-    <script src="list/list.component.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
+    <script src="00list/list.module.js"></script>
+    <script src="00list/list.component.js"></script>
+
+    <script src="01表达式/bds.module.js"></script>
+    <script src="01表达式/bds.component.js"></script>
+
+    <!--<script src="01表达式/test.js"></script>-->
 
 </head>
 <body>
-    <list></list>
+    <div ng-view></div>
+    <!--<list></list>-->
 </body>
 </html>

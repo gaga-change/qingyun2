@@ -1,0 +1,15 @@
+<div class="container">
+    <h1>网易新闻</h1>
+    <!--{{$ctrl.test}}-->
+    <ul>
+        <li ng-repeat="n in $ctrl.news ">
+            <div>
+                <a href="{{n.url}}" >
+                    <h3>{{n.title}}</h3>
+                </a>
+                    <p>{{n.digest}}</p>
+
+            </div>
+        </li>
+    </ul>
+</div>
