@@ -3,3 +3,10 @@
  */
 'use strict';
  
+console.log('app.module.js');
+
+angular.module('wyApp', [
+    'ngRoute',
+    'newsDetail',
+    'newsList'
+]);

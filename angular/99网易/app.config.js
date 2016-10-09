@@ -5,17 +5,17 @@
 
 console.log('app.config.js');
 
-angular.module('myApp')
+angular.module('wyApp')
     .config(['$locationProvider', '$routeProvider',
         function ($locationProvider, $routeProvider) {
             $locationProvider.hashPrefix('!');
-            
+
             $routeProvider
                 .when('/list', {
-                    template: '<list></list>'
+                    template: '<news-list></news-list>'
                 })
-                .when('/bds', {
-                    template: "<bds></bds>"
+                .when('/list/:listId', {
+                    template: '<news-detail></news-detail>'
                 })
-                .otherwise('/list');
+                .otherwise('/list')
         }]);

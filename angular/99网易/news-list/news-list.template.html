@@ -1,15 +1,25 @@
-<div class="container">
-    <h1>网易新闻</h1>
-    <!--{{$ctrl.test}}-->
-    <ul>
-        <li ng-repeat="n in $ctrl.news ">
-            <div>
-                <a href="{{n.url}}" >
-                    <h3>{{n.title}}</h3>
-                </a>
-                    <p>{{n.digest}}</p>
-
-            </div>
-        </li>
-    </ul>
+<!--
+    1.图片  imgsrc
+    2.标题  title
+    3.跟帖  replyCount
+    4.分类  头条
+    5.id    docid
+-->
+<link rel="stylesheet" href="/css/news-item.css">
+<div class="item" id="{{i.docid}}" ng-repeat="i in $ctrl.news " >
+    <a  href="#!/list/{{i.docid}}" >
+        <img class="i img-responsive" ng-src="{{i.imgsrc}}" alt="{{i.title}}">
+        <div class="c" >
+            <h3 class="t">{{i.title}}</h3>
+            <p><span class="l">
+                头条
+                </span><span class="r">
+                {{i.replyCount}}跟帖
+                </span></p>
+        </div>
+        <div style="clear: both"></div>
+    </a>
 </div>
+
+
+

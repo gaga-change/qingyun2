@@ -11,6 +11,12 @@ angular.module('newsList')
         controller: ['$http', function ($http) {
             var self = this;
             this.test = 'test';
+
+            // $http({
+            //     method: 'jsonp',
+            //     url:".....myUrl=''&callback=JSON_CALLBACK"
+            // });
+
             $http({
                     method: 'POST',
                     url: '/getJson',
@@ -18,7 +24,7 @@ angular.module('newsList')
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
                     data: 'myUrl=http://c.m.163.com/nc/article/headline/' +
-                    'T1348647853363/0-10.html'
+                    'T1348647853363/0-140.html'
                     // data: 'myUrl=http://3g.163.com/ntes/16/1009/10/C2U78IND00238087.html'
                     // data: 'myUrl=http://news.163.com/16/1009/10/C2U9JOR30001124J.html'
                 }

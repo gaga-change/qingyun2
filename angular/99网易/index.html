@@ -6,13 +6,43 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
 
     <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
 
     <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
 
     <script src="news-list/news-list.module.js"></script>
     <script src="news-list/news-list.component.js"></script>
+
+    <script src="news-detail/news-detail.module.js"></script>
+    <script src="news-detail/news-detail.component.js"></script>
+
 </head>
 <body>
-    <news-list></news-list>
+    <!--<news-list></news-list>-->
+    <!--<news-detail></news-detail>-->
+    <div ng-view></div>
 </body>
+<script>
+
+//    <!--this.docid = $routeParams.listId;-->
+//    //监听点击事件
+//    //点击后保存id
+//    //监听url变化,如果有变,位置变回去
+//    window.addEventListener('hashchange', function (e) {
+//        var id =sessionStorage.getItem('newsId');
+//        if(id){
+//            var si = setInterval(function () {
+//                if(document.querySelector('#'+id)){
+//                    var a =document.querySelector('#'+id);
+//                    console.log(a);
+//                    clearTimeout(si);
+//                    //获取id的位置
+//                    //让主页面跳转回去
+//
+//                }
+//            }, 100)
+//        }
+//    })
+</script>
 </html>
