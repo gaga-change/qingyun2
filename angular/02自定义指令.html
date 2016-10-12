@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bower_components/angular/angular.js"></script>
+</head>
+<body style="background-color: #2aabd2">
+<span draggable>Drag Me</span>
+</body>
+
+<script>
+    /**
+     *  写一个可以自由拖动标签的指令
+     */
+    angular.module('myApp', [])
+            .directive('draggable', function ($document) {
+                var downX = 0, downY = 0, x = 0, y = 0;
+                return function (scope, element, attr) {
+                    element.css({
+                        position: 'relative',
+                        border: '1px solid red',
+                        backgroundColor: 'AliceBlue',
+                        cursor: 'pointer'
+                    });
+                    element.bind('mousedown', function (event) {
+                        console.log(event);
+                        downX = event.screenX - x;
+                        downY = event.screenY - y;
+                        $document.bind('mousemove', mousemove);
+                        $document.bind('mouseup', mouseup)
+                    });
+                    function mousemove(event) {
+                        x = event.screenX - downX;
+                        y = event.screenY - downY;
+
+                        element.css({
+                            top: y + 'px',
+                            left: x + 'px'
+                        });
+                    }
+
+                    function mouseup() {
+                        $document.unbind('mousemove', mousemove);
+                        $document.unbind('mouseup', mouseup);
+                    }
+                }
+            })
+</script>
+</html>

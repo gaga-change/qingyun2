@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bower_components/angular/angular.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="Ctrl">
+<input type="text" ng-model="test">
+{{test | reverse:true}}
+</body>
+<script>
+    angular.module('myApp', [])
+            .filter('reverse', function () {
+                return function (input, isUppercase) {
+                    var out = "";
+                    for (var i = 0; i < input.length; i++) {
+                        out = input.charAt(i) + out;
+                    }
+                    if (isUppercase) {
+                        out = out.toUpperCase();
+                    }
+                    return out;
+                }
+            })
+            .controller('Ctrl', function ($scope) {
+                $scope.test = "123";
+            });
+</script>
+</html>

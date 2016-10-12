@@ -70,7 +70,7 @@ function minErr(module, ErrorConstructor) {
 }
 
 /* We need to tell jshint what variables are being exported */
-/* global angular: true,
+/* global angularApp: true,
   msie: true,
   jqLite: true,
   jQuery: true,
@@ -291,7 +291,7 @@ function isArrayLike(obj) {
    ```js
      var values = {name: 'misko', gender: 'male'};
      var log = [];
-     angular.forEach(values, function(value, key) {
+     angularApp.forEach(values, function(value, key) {
        this.push(key + ': ' + value);
      }, log);
      expect(log).toEqual(['name: misko', 'gender: male']);
@@ -366,7 +366,7 @@ function reverseParams(iteratorFn) {
 }
 
 /**
- * A consistent way of creating unique IDs in angular.
+ * A consistent way of creating unique IDs in angularApp.
  *
  * Using simple numbers allows us to generate 28.6 million unique ids per second for 10 years before
  * we hit number precision issues in JavaScript.
@@ -437,9 +437,9 @@ function baseExtend(dst, objs, deep) {
  * @description
  * Extends the destination object `dst` by copying own enumerable properties from the `src` object(s)
  * to `dst`. You can specify multiple `src` objects. If you want to preserve original objects, you can do so
- * by passing an empty object as the target: `var object = angular.extend({}, object1, object2)`.
+ * by passing an empty object as the target: `var object = angularApp.extend({}, object1, object2)`.
  *
- * **Note:** Keep in mind that `angular.extend` does not support recursive merge (deep copy). Use
+ * **Note:** Keep in mind that `angularApp.extend` does not support recursive merge (deep copy). Use
  * {@link angular.merge} for this.
  *
  * @param {Object} dst Destination object.
@@ -460,7 +460,7 @@ function extend(dst) {
 * @description
 * Deeply extends the destination object `dst` by copying own enumerable properties from the `src` object(s)
 * to `dst`. You can specify multiple `src` objects. If you want to preserve original objects, you can do so
-* by passing an empty object as the target: `var object = angular.merge({}, object1, object2)`.
+* by passing an empty object as the target: `var object = angularApp.merge({}, object1, object2)`.
 *
 * Unlike {@link angular.extend extend()}, `merge()` recursively descends into object properties of source
 * objects, performing a deep copy.
@@ -496,7 +496,7 @@ function inherit(parent, extra) {
    ```js
      function foo(callback) {
        var result = calculateResult();
-       (callback || angular.noop)(result);
+       (callback || angularApp.noop)(result);
      }
    ```
  */
@@ -516,12 +516,12 @@ noop.$inject = [];
  *
    ```js
    function transformer(transformationFn, value) {
-     return (transformationFn || angular.identity)(value);
+     return (transformationFn || angularApp.identity)(value);
    };
 
    // E.g.
    function getResult(fn, input) {
-     return (fn || angular.identity)(input);
+     return (fn || angularApp.identity)(input);
    };
 
    getResult(function(n) { return n * 2; }, 21);   // returns 42
@@ -1279,7 +1279,7 @@ function toJsonReplacer(key, value) {
  *
  * @description
  * Serializes input into a JSON-formatted string. Properties with leading $$ characters will be
- * stripped since angular uses this notation internally.
+ * stripped since angularApp uses this notation internally.
  *
  * @param {Object|Array|Date|string|number} obj Input to be serialized into JSON.
  * @param {boolean|number} [pretty=2] If set to true, the JSON output will contain newlines and whitespace.
@@ -1670,7 +1670,7 @@ function angularInit(element, bootstrap) {
  * @name angular.bootstrap
  * @module ng
  * @description
- * Use this function to manually start up angular application.
+ * Use this function to manually start up angularApp application.
  *
  * For more information, see the {@link guide/bootstrap Bootstrap guide}.
  *
@@ -1699,19 +1699,19 @@ function angularInit(element, bootstrap) {
  *   {{greeting}}
  * </div>
  *
- * <script src="angular.js"></script>
+ * <script src="angularApp.js"></script>
  * <script>
- *   var app = angular.module('demo', [])
+ *   var app = angularApp.module('demo', [])
  *   .controller('WelcomeController', function($scope) {
  *       $scope.greeting = 'Welcome!';
  *   });
- *   angular.bootstrap(document, ['demo']);
+ *   angularApp.bootstrap(document, ['demo']);
  * </script>
  * </body>
  * </html>
  * ```
  *
- * @param {DOMElement} element DOM element which is the root of angular application.
+ * @param {DOMElement} element DOM element which is the root of angularApp application.
  * @param {Array<String|Function|Array>=} modules an array of modules to load into the application.
  *     Each item in the array should be the name of a predefined module or a (DI annotated)
  *     function that will be invoked by the injector as a `config` block.
@@ -1813,7 +1813,7 @@ function reloadWithDebugInfo() {
  * @description
  * Get the testability service for the instance of Angular on the given
  * element.
- * @param {DOMElement} element DOM element which is the root of angular application.
+ * @param {DOMElement} element DOM element which is the root of angularApp application.
  */
 function getTestability(rootElement) {
   var injector = angular.element(rootElement).injector();
@@ -2008,7 +2008,7 @@ function setupModuleLoader(window) {
 
   var angular = ensure(window, 'angular', Object);
 
-  // We need to expose `angular.$$minErr` to modules such as `ngResource` that reference it during bootstrap
+  // We need to expose `angularApp.$$minErr` to modules such as `ngResource` that reference it during bootstrap
   angular.$$minErr = angular.$$minErr || minErr;
 
   return ensure(angular, 'module', function() {
@@ -2231,13 +2231,13 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#filter
            * @module ng
-           * @param {string} name Filter name - this must be a valid angular expression identifier
+           * @param {string} name Filter name - this must be a valid angularApp expression identifier
            * @param {Function} filterFactory Factory function for creating new instance of filter.
            * @description
            * See {@link ng.$filterProvider#register $filterProvider.register()}.
            *
            * <div class="alert alert-warning">
-           * **Note:** Filter names must be valid angular {@link expression} identifiers, such as `uppercase` or `orderBy`.
+           * **Note:** Filter names must be valid angularApp {@link expression} identifiers, such as `uppercase` or `orderBy`.
            * Names with special characters, such as hyphens and dots, are not allowed. If you wish to namespace
            * your filters, then you can use capitalization (`myappSubsectionFilterx`) or underscores
            * (`myapp_subsection_filterx`).
@@ -2956,7 +2956,7 @@ function JQLite(element) {
   }
   if (!(this instanceof JQLite)) {
     if (argIsString && element.charAt(0) != '<') {
-      throw jqLiteMinErr('nosel', 'Looking up elements via selectors is not supported by jqLite! See: http://docs.angularjs.org/api/angular.element');
+      throw jqLiteMinErr('nosel', 'Looking up elements via selectors is not supported by jqLite! See: http://docs.angularjs.org/api/angularApp.element');
     }
     return new JQLite(element);
   }
@@ -4922,7 +4922,7 @@ function $AnchorScrollProvider() {
     var document = $window.document;
 
     // Helper function to get first anchor from a NodeList
-    // (using `Array#some()` instead of `angular#forEach()` since it's more performant
+    // (using `Array#some()` instead of `angularApp#forEach()` since it's more performant
     //  and working in all supported browsers.)
     function getFirstAnchor(list) {
       var result = null;
@@ -6152,7 +6152,7 @@ function Browser(window, document, $log, $sniffer) {
    * @description
    * Register callback function that will be called, when url changes.
    *
-   * It's only called when the url is changed from outside of angular:
+   * It's only called when the url is changed from outside of angularApp:
    * - user types different url into address bar
    * - user clicks on history (forward/back) button
    * - user clicks on a link
@@ -6162,7 +6162,7 @@ function Browser(window, document, $log, $sniffer) {
    * The listener gets called with new url as parameter.
    *
    * NOTE: this api is intended for use only by the $location service. Please use the
-   * {@link ng.$location $location service} to monitor url changes in angular apps.
+   * {@link ng.$location $location service} to monitor url changes in angularApp apps.
    *
    * @param {function(string)} listener Listener function to be called when url changes.
    * @return {function(string)} Returns the registered listener fn - handy if the fn is anonymous.
@@ -7862,7 +7862,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * Here are a few examples of how you would usually define components:
    *
    * ```js
-   *   var myMod = angular.module(...);
+   *   var myMod = angularApp.module(...);
    *   myMod.component('myComp', {
    *     template: '<div>My name is {{$ctrl.name}}</div>',
    *     controller: function() {
@@ -10160,7 +10160,7 @@ function directiveNormalize(name) {
  */
 
 function nodesetLinkingFn(
-  /* angular.Scope */ scope,
+  /* angularApp.Scope */ scope,
   /* NodeList */ nodeList,
   /* Element */ rootElement,
   /* function(Function) */ boundTranscludeFn
@@ -10168,7 +10168,7 @@ function nodesetLinkingFn(
 
 function directiveLinkingFn(
   /* nodesetLinkingFn */ nodesetLinkingFn,
-  /* angular.Scope */ scope,
+  /* angularApp.Scope */ scope,
   /* Node */ node,
   /* Element */ rootElement,
   /* function(Function) */ boundTranscludeFn
@@ -13198,7 +13198,7 @@ var locationPrototype = {
    *
    * Return host of current url.
    *
-   * Note: compared to the non-angular version `location.host` which returns `hostname:port`, this returns the `hostname` portion only.
+   * Note: compared to the non-angularApp version `location.host` which returns `hostname:port`, this returns the `hostname` portion only.
    *
    *
    * ```js
@@ -13660,7 +13660,7 @@ function $LocationProvider() {
 
       if (absHref && !elm.attr('target') && !event.isDefaultPrevented()) {
         if ($location.$$parseLinkUrl(absHref, relHref)) {
-          // We do a preventDefault for all urls that are part of the angular application,
+          // We do a preventDefault for all urls that are part of the angularApp application,
           // in html5mode and also without, so that we are able to abort navigation without
           // getting double entries in the location history.
           event.preventDefault();
@@ -13959,7 +13959,7 @@ var $parseMinErr = minErr('$parse');
 // practice and therefore we are not even trying to protect against interaction with an object
 // explicitly exposed in this way.
 //
-// In general, it is not possible to access a Window object from an angular expression unless a
+// In general, it is not possible to access a Window object from an angularApp expression unless a
 // window or some DOM object that has a reference to window is published onto a Scope.
 // Similarly we prevent invocations of function known to be dangerous, as well as assignments to
 // native objects.
@@ -16362,7 +16362,7 @@ function qFactory(nextTick, exceptionHandler) {
     }
   });
 
-  //Faster, more basic than angular.bind http://jsperf.com/angular-bind-vs-custom-vs-native
+  //Faster, more basic than angularApp.bind http://jsperf.com/angular-bind-vs-custom-vs-native
   function simpleBind(context, fn) {
     return function(value) {
       fn.call(context, value);
@@ -17670,7 +17670,7 @@ function $RootScopeProvider() {
            expect(scope.$eval(function(scope){ return scope.a + scope.b; })).toEqual(3);
        * ```
        *
-       * @param {(string|function())=} expression An angular expression to be executed.
+       * @param {(string|function())=} expression An angularApp expression to be executed.
        *
        *    - `string`: execute using the rules as defined in  {@link guide/expression expression}.
        *    - `function(scope)`: execute the function with the current `scope` parameter.
@@ -17705,7 +17705,7 @@ function $RootScopeProvider() {
        * will be scheduled. However, it is encouraged to always call code that changes the model
        * from within an `$apply` call. That includes code evaluated via `$evalAsync`.
        *
-       * @param {(string|function())=} expression An angular expression to be executed.
+       * @param {(string|function())=} expression An angularApp expression to be executed.
        *
        *    - `string`: execute using the rules as defined in {@link guide/expression expression}.
        *    - `function(scope)`: execute the function with the current `scope` parameter.
@@ -17736,9 +17736,9 @@ function $RootScopeProvider() {
        * @kind function
        *
        * @description
-       * `$apply()` is used to execute an expression in angular from outside of the angular
+       * `$apply()` is used to execute an expression in angularApp from outside of the angularApp
        * framework. (For example from browser DOM events, setTimeout, XHR or third party libraries).
-       * Because we are calling into the angular framework we need to perform proper scope life
+       * Because we are calling into the angularApp framework we need to perform proper scope life
        * cycle of {@link ng.$exceptionHandler exception handling},
        * {@link ng.$rootScope.Scope#$digest executing watches}.
        *
@@ -17768,7 +17768,7 @@ function $RootScopeProvider() {
        *    expression was executed using the {@link ng.$rootScope.Scope#$digest $digest()} method.
        *
        *
-       * @param {(string|function())=} exp An angular expression to be executed.
+       * @param {(string|function())=} exp An angularApp expression to be executed.
        *
        *    - `string`: execute using the rules as defined in {@link guide/expression expression}.
        *    - `function(scope)`: execute the function with current `scope` parameter.
@@ -17807,7 +17807,7 @@ function $RootScopeProvider() {
        * This can be used to queue up multiple expressions which need to be evaluated in the same
        * digest.
        *
-       * @param {(string|function())=} exp An angular expression to be executed.
+       * @param {(string|function())=} exp An angularApp expression to be executed.
        *
        *    - `string`: execute using the rules as defined in {@link guide/expression expression}.
        *    - `function(scope)`: execute the function with current `scope` parameter.
@@ -18105,7 +18105,7 @@ function $RootScopeProvider() {
  */
 
 
-// the implementation is in angular.bootstrap
+// the implementation is in angularApp.bootstrap
 
 /**
  * @description
@@ -18454,7 +18454,7 @@ function $SceDelegateProvider() {
      * @name $sceDelegate#trustAs
      *
      * @description
-     * Returns an object that is trusted by angular for use in specified strict
+     * Returns an object that is trusted by angularApp for use in specified strict
      * contextual escaping contexts (such as ng-bind-html, ng-include, any src
      * attribute interpolation, any dom event binding attribute interpolation
      * such as for onclick,  etc.) that uses the provided value.
@@ -19959,7 +19959,7 @@ function $FilterProvider($provide) {
    *    the keys are the filter names and the values are the filter factories.
    *
    *    <div class="alert alert-warning">
-   *    **Note:** Filter names must be valid angular {@link expression} identifiers, such as `uppercase` or `orderBy`.
+   *    **Note:** Filter names must be valid angularApp {@link expression} identifiers, such as `uppercase` or `orderBy`.
    *    Names with special characters, such as hyphens and dots, are not allowed. If you wish to namespace
    *    your filters, then you can use capitalization (`myappSubsectionFilterx`) or underscores
    *    (`myapp_subsection_filterx`).
@@ -25855,7 +25855,7 @@ var ngControllerDirective = [function() {
  */
 /*
  * A collection of directives that allows creation of custom event handlers that are defined as
- * angular expressions and are compiled and executed within the current scope.
+ * angularApp expressions and are compiled and executed within the current scope.
  */
 var ngEventDirectives = {};
 
@@ -31605,7 +31605,7 @@ var minlengthDirective = function() {
 if (window.angular.bootstrap) {
   //AngularJS is already loaded, so we can return here...
   if (window.console) {
-    console.log('WARNING: Tried to load angular more than once.');
+    console.log('WARNING: Tried to load angularApp more than once.');
   }
   return;
 }

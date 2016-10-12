@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D盒子</title>
+    <style>
+        .box3D {
+            position: relative;
+            padding: 40px;
+            margin: 100px;
+            height: 220px;
+            width: 440px;
+            /*background-color: AliceBlue;*/
+            border: none;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            animation: myDemo 20s infinite;
+            /*animation: myDemo 3s ;*/
+        }
+        .box3D:after {
+            content: " ";
+            display: block;
+            clear: both;
+        }
+        .box {
+            position: absolute;
+            top: 0;
+            width: 440px;
+            height: 220px;
+        }
+        .n1{
+            transform: rotateY(0deg) translateZ(127px) ;
+        }
+        .n2{
+            transform: rotateY(120deg)  translateZ(127px) ;
+        }
+        .n3{
+            transform: rotateY(240deg) translateZ(127px)  ;
+        }
+        .n4{
+            transform: rotateY(270deg) translateZ(220px) ;
+        }
+
+        .s {
+            transform: rotateX(90deg) translateZ(220px);
+            background-color: red;
+            /*border: dashed 5px red;*/
+        }
+        .x {
+            transform: rotateX(90deg) translateZ(-220px);
+            background-color: green;
+        }
+        .y {
+            transform: rotateY(90deg) translateZ(220px);
+            background-color: orange;
+        }
+        .z {
+            transform: rotateY(270deg) translateZ(220px);
+            background-color: darkmagenta;
+        }
+        .h {
+            transform: rotateY(180deg) translateZ(220px);
+            background-color: gold;
+        }
+        .q {
+            transform: translateZ(220px);
+            background-color: blue;
+        }
+        @keyframes myDemo {
+            0% {
+                /*transform-origin: center center;*/
+                transform: rotate3d(0, 1, 0, 0deg);
+            }
+            25% {
+                transform: rotate3d(0, 1, 0, -120deg);
+            }
+            50% {
+                transform: rotate3d(0, 1, 0, -240deg);
+            }
+            100% {
+                transform: rotate3d(0, 1, 0, -360deg);
+                /*transform-origin: center center;*/
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="box3D">
+    <!--
+        从0开始
+           秋季
+        感受孤独
+        bilibili
+    -->
+    <!--<div class="box y"><img src="http://i0.hdslb.com/bfs/archive/09c7f6f70de45e477ecdfc08b40cda77536ef996.jpg@.webp" alt=""></div>-->
+    <!--<div class="box z"><img src="http://i0.hdslb.com/bfs/archive/89034a38a9415654004ecf66d6455cca8513830d.jpg@.webp" alt=""></div>-->
+    <!--<div class="box h"><img  src="http://i0.hdslb.com/bfs/archive/889c27bab8f2e2f7d412de9c8665fd9e48512f2f.jpg@.webp" alt=""></div>-->
+    <!--<div class="box q"><img src="http://i0.hdslb.com/bfs/archive/c89d65cb9c56d819c688464e712a38bb6e3dc3ac.jpg@.webp" alt=""></div>-->
+    <!--<div class="box n4"><img src="http://i0.hdslb.com/bfs/archive/09c7f6f70de45e477ecdfc08b40cda77536ef996.jpg@.webp" alt=""></div>-->
+    <div class="box n3"><img src="http://i0.hdslb.com/bfs/archive/89034a38a9415654004ecf66d6455cca8513830d.jpg@.webp" alt=""></div>
+    <div class="box n2"><img src="http://i0.hdslb.com/bfs/archive/889c27bab8f2e2f7d412de9c8665fd9e48512f2f.jpg@.webp" alt=""></div>
+    <div class="box n1"><img src="http://i0.hdslb.com/bfs/archive/c89d65cb9c56d819c688464e712a38bb6e3dc3ac.jpg@.webp" alt=""></div>
+</div>
+<div>
+    <div class=" "><img src="http://i0.hdslb.com/bfs/archive/09c7f6f70de45e477ecdfc08b40cda77536ef996.jpg@.webp" alt=""></div>
+    <div class=" "><img src="http://i0.hdslb.com/bfs/archive/89034a38a9415654004ecf66d6455cca8513830d.jpg@.webp" alt=""></div>
+    <div class=""><img  src="http://i0.hdslb.com/bfs/archive/889c27bab8f2e2f7d412de9c8665fd9e48512f2f.jpg@.webp" alt=""></div>
+    <div class=""><img src="http://i0.hdslb.com/bfs/archive/c89d65cb9c56d819c688464e712a38bb6e3dc3ac.jpg@.webp" alt=""></div>
+</div>
+</body>
+
+</html>

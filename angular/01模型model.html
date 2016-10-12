@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="" ng-init="name=3">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <style>
+        .my-input {
+            transition:0.5s linear all;
+            background: yellow;
+        }
+        .my-input.ng-invalid {
+            background: red;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<form action="" name="myForm">
+    <input class="my-input" type="email" name="name" ng-model="name">
+    <p>{{name}}</p>
+    <br>
+    valid 有效的:{{myForm.name.$valid}}<br>
+    dirty 脏的 :{{myForm.name.$dirty}}<br>
+    touched 正确的 :{{myForm.name.$touched}}<br>
+    error  错误的 : {{myForm.name.$error}}<br>
+</form>
+</body>
+<script>
+</script>
+</html>
