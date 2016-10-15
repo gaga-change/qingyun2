@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标题在这修改</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+</head>
+<body ng-app="myApp" ng-cloak>
+<div ng-controller="Ctrl">
+    {{hex}}<br>
+    <input type="text" ng-model="number">
+    <span>{{number | myFormat}}</span>
+</div>
+</body>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('Ctrl', function ($scope, $interval, hexafy) {
+        $scope.hex = hexafy.myFunc(255);
+        $scope.number = 0;
+    });
+    app.service('hexafy', function () {
+        this.myFunc = function (x) {
+            x = parseFloat(x);
+            x = isNaN(x) ? 0 : x;
+            return x.toString(16);
+        }
+    });
+    app.filter('myFormat', ['hexafy', function (hexafy) {
+        return function (input) {
+            return hexafy.myFunc(input);
+        }
+    }])
+</script>
+</html>
