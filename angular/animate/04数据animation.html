@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标题在这修改</title>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script></script>
+    <style>
+
+        .move {
+            width: 200px;
+            background-color: #a4ffa1;
+            /*position: absolute;*/
+        }
+        .move.ng-enter {
+            transition: 1s linear ;
+            transform: translateX(-200px);
+            animation: move 2s linear;
+        }
+        @keyframes move {
+            from {
+                opacity: 0;
+                transform: translate(-800px) rotate(0deg);
+            }
+            to {
+                opacity: 1;
+                transform: translate(0px) rotate(-360deg);
+            }
+        }
+        .move.ng-enter-stagger {
+            animation-delay: 300ms;
+
+            transition-duration: 0s;
+
+        }
+        body {
+            margin-top: 50px;
+            background-color: AliceBlue;
+        }
+        .con {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-cloak>
+<div class="con text-center" ng-controller="Ctrl">
+    <div class="move center-block" ng-repeat="name in main.nameArray">
+        <span>{{name}}</span>
+    </div>
+</div>
+</body>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+            .controller('Ctrl', ['$scope', '$timeout', function ($scope, $timeout) {
+                $scope.main = {};
+                $timeout(function () {
+                    $scope.main = {
+                        nameArray: ['张三', '李四', '王五']
+                    }
+                })
+            }])
+</script>
+</html>

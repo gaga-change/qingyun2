@@ -16705,7 +16705,7 @@ function $$RAFProvider() { //rAF
           };
         }
       : function(fn) {
-          var timer = $timeout(fn, 16.66, false); // 1000 / 60 = 16.666
+          var timer = $timeout(fn, 16.66, false); // 1000 / 60 = 16test.666
           return function() {
             $timeout.cancel(timer);
           };

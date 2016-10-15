@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .show {
+            width: 100px; height: 100px;background-color: #bf6bff;
+            transition:width 1s linear 0s;
+        }
+        .show.ng-enter {
+            width: 0px;
+        }
+        .show.ng-enter.ng-enter-active{
+            width: 100px;
+        }
+        .show.ng-leave{
+            width: 20px;
+        }
+    </style>
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script>
+        angular.module('myApp', ['ngAnimate'])
+                .controller('MyController', ['$scope', function ($scope) {
+
+                }])
+    </script>
+</head>
+<body ng-app="myApp">
+<button ng-click="isShowDiv = true">true</button>
+<button ng-click="isShowDiv = false">false</button>
+<div ng-controller="MyController">
+    <div class="show" ng-if="isShowDiv" style="">
+
+    </div>
+</div>
+</body>
+</html>

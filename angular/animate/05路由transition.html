@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标题在这修改</title>
+    <!--<link rel="stylesheet" href="app.animations.css">-->
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!--<script src="../../bower_components/jquery/dist/jquery.min.js"></script>-->
+    <!--<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="../../bower_components/angular-route/angular-route.min.js"></script>
+    <style>
+        .a{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: #d787ff;
+        }
+        .b{
+            width: 100px;
+            height: 100px;
+            background-color: #cc656b;
+        }
+        .template.ng-enter {
+            transition:all 1s linear;
+            transform: translateX(-20px);
+            opacity: 0;
+            /*position: absolute;*/
+            /*left: 300px;*/
+        }
+        .template.ng-enter.ng-enter-active{
+            transform: translateX(0px);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+    <list></list>
+    <div class="template container" ng-view></div>
+</body>
+<script>
+
+
+    angular.module('myApp', ['ngAnimate', 'ngRoute', 'aa', 'bb'])
+            .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+                $locationProvider.hashPrefix('!');
+                $routeProvider.when('/aa', {
+                    template: '<aa></aa>'
+                });
+                $routeProvider.when('/bb', {
+                    template: '<bb></bb>'
+                });
+//                $routeProvider.otherwise('/');
+            }])
+            .component('list', {
+               template: '<div class="list">' +
+               '<a href="#!/aa">aa</a><br>' +
+               '<a href="#!/bb">bb</a></div>'
+            });
+    angular.module('aa', ['ngRoute', 'ngAnimate'])
+            .component('aa', {
+                template: '<div class="a"></div>'
+            });
+    angular.module('bb', ['ngRoute', 'ngAnimate'])
+            .component('bb', {
+                template: '<div class="b"></div>'
+            });
+
+</script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标题在这修改</title>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script ></script>
+</head>
+<body>
+    <div ng-controller="MyController">
+        <div ng-repeat="num in mainModule.numArr">
+            <span>{{num}}</span>
+        </div>
+    </div>
+</body>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', '$timeout', '$interval', function ($scope, $timeout, $interval) {
+                $scope.mainModel = new Object();
+                $scope.mainModel.numArr = [];
+                var i =0;
+                var interval;
+                var animateFn = function () {
+                    i++;
+                    $scope.mainModel.numArr.push(i);
+                    if(i > 10){
+                        $interval.cancel(interval);
+                    }
+                };
+                interval = $interval(animateFn, 200 );
+                $timeout(function () {
+
+                },1);
+            }])
+            //第一个参数,DOM元素类名
+            .animation('.move', [function () {
+                return {
+                    enter: function (element, done) {
+                        var op = 0;
+                        var interval;
+                        var animationFn = function () {
+                            op += 10;
+                            element.css('opacity', op/100);
+                            if(op > 100){
+                                $interval.cancel(interval);
+                                //动画完成调用done()函数
+                                done();
+                            }
+                        }
+                        element.css('opacity', 0);
+                        interval = $interval(animationFn, 100);
+                        return function () {
+                            console.log(1111);
+                        }
+                    }
+                }
+            }])
+</script>
+</html>
