@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>标题在这修改</title>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+
+</head>
+<body ng-app="myApp" ng-cloak>
+<div ng-controller="Ctrl">
+    <div id="myDiv">Hello World</div>
+</div>
+</body>
+<script>
+    angular.module('myApp', [])
+            .controller('Ctrl', ['$scope', '$document', function ($scope, $document) {
+                // 创建一个元素
+                var oDiv = angular.element('<div>青云志</div>')
+                // 获取元素中的内容
+//                console.log(oDiv.html());
+//
+//                console.log($document);
+//
+//                var doc = angular.element(document);
+//                console.log(doc);
+
+                angular.element($document[0].querySelector('#myDiv')).append(oDiv);
+                console.log($document[0].querySelector('#myDiv'))
+            }])
+</script>
+</html>

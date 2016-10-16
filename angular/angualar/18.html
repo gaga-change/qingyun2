@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>标题在这修改</title>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+    <style>
+        .f {
+            width: 300px;
+            height: 300px;
+            background-color: AliceBlue;
+        }
+        .f:hover > .d{
+            opacity: 1;
+        }
+        .d {
+            width: 100px;
+            height: 100px;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-cloak>
+<div class="f" ng-controller="Ctrl">
+    <div id="myDiv" class="d fade"></div>
+</div>
+</body>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+            .controller('Ctrl', ['$scope', '$animate', function ($scope, $animate) {
+                var myDiv = document.getEl
+            }])
+</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>标题在这修改</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!--<script src="../bower_components/jquery/dist/jquery.min.js"></script>-->
+    <!--<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="../bower_components/GreenSock-JS/src/minified/TweenMax.min.js"></script>
+    <style>
+        .content {
+            width: 200px;
+            height: 200px;
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-cloak>
+<div ng-controller="Ctrl">
+    <div ng-click="doSth($event)" class="content"></div>
+</div>
+</body>
+<script>
+    console.log(TweenLite);
+    angular.module('myApp', [])
+            .controller('Ctrl', ['$scope', function ($scope) {
+
+                $scope.doSth = function (e) {
+                    console.log(e);
+                    /**
+                     * CSS动画库 : CSSPlugin.js
+                     * 缓动动画库 : EasePack.js
+                     * 第一个参数 : 目标元素
+                     * 第二个参数 : 动画持续时间
+                     * 第三个参数 : 对象(动画属性的集合)
+                     */
+
+                    TweenLite.to(e.target, 2, {
+                        x : 100,
+                        y : 100
+                    })
+                };
+            }])
+</script>
+</html>
