@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>标题在这修改</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="../bower_components/GreenSock-JS/src/minified/TimelineMax.min.js"></script>
+
+</head>
+<body ng-app="myApp" ng-cloak>
+<div ng-controller="CtrlOne">
+    <button ng-click="broadcast()">向下传播</button>
+    <div ng-controller="CtrlTwo">
+        <div ng-controller="CtrlThree">
+
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    angular.module('myApp', [])
+            .controller('CtrlOne', ['$scope', function ($scope) {
+                $scope.broadcast = function () {
+                    $scope.$broadcast('hello', 'world');
+                }
+            }])
+            .controller('CtrlTwo', ['$scope', function ($scope) {
+
+            }])
+            .controller('CtrlThree', ['$scope', function ($scope) {
+                $scope.$on('hello', function (event, msg) {
+                    console.log('Child 收到消息' + msg);
+                })
+            }])
+</script>
+</html>

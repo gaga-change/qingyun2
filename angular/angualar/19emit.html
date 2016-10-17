@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>标题在这修改</title>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="../../bower_components/GreenSock-JS/src/minified/TimelineMax.min.js"></script>
+
+</head>
+<body ng-app="myApp" ng-cloak>
+<div class="text-center page-header" ng-controller="CtrlOne">
+    {{animate}}
+    <div ng-controller="CtrlTwo">
+        <button class="btn btn-info" ng-click='emit()'>向父级传递事件</button>
+        {{name}}
+        {{animate}}
+    </div>
+</div>
+</body>
+<script>
+    angular.module('myApp', [])
+            .controller('CtrlOne', ['$scope', function ($scope) {
+                /**
+                 * $on监听事件
+                 * 第一个参数: 消息名称
+                 * 第二个参数: 回调函数,第一个参数:事件对象,第二个参数: 消息内容
+                 */
+                $scope.$on('hello', function (event, msg) {
+                    console.log(event.targetScope.name);
+                    console.log(msg);
+                    //传播事件的作用域
+                    event.targetScope.name = 'dong';
+                    //currentScope
+                    event.currentScope.animate = '🐩';
+                })
+            }])
+            .controller('CtrlTwo', ['$scope', function ($scope) {
+                $scope.emit = function () {
+                    /**
+                     * $emit 服务: 让事件从子作用域传递到父作用域
+                     * 第一个参数: 消息名称
+                     * 第二个参数: 消息(可以为字符串,数组,对象)
+                     */
+                    $scope.$emit('hello', 'world');
+                };
+                $scope.name = 'gaga_change';
+            }])
+</script>
+</html>
