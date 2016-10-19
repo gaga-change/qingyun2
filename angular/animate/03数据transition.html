@@ -10,27 +10,42 @@
     <script src="../../bower_components/angular/angular.min.js"></script>
     <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
     <style>
-        .move{
+        .move {
+            display: block;
             width: 200px;
             background-color: #a4ffa1;
         }
+
         .move.ng-enter {
+            display: block;
             transition: 1s linear;
             transform: translateY(-200px);
         }
+
         .move.ng-enter-active {
+            display: block;
             transform: translateX(0);
         }
+
         .move.ng-enter-stagger {
-            transition-delay:300ms;
+            display: block;
+            transition-delay: 300ms;
+        }
+
+        .son-ul li {
+            /*display: none;*/
         }
     </style>
 </head>
 <body ng-app="myApp" ng-cloak>
 <div ng-controller="Ctrl">
-    <div ng-repeat="name in main.nameArray" class="move">
-        <span>{{name}}</span>
-    </div>
+    <!--<div style="width: 100px;height: 100px;">-->
+    <!--</div>-->
+    <!--<div ng-repeat="name in main.nameArray" class="move">-->
+    <!--<span>{{name}}</span>-->
+    <!--</div>-->
+    <menu-list></menu-list>
+
 </div>
 </body>
 <script>
@@ -42,7 +57,88 @@
                         nameArray: ['张三', '李四', '王五']
                     }
                 }, 0);
+            }]);
 
-            }])
+    setTimeout(function () {
+        var f = $('[data-id=fat]');
+        console.log(f);
+//        f.on('hover', function(e){
+//            console.log(e);
+//        });
+        f.click(function (e) {
+            var u = $(e.target).siblings('ul')
+//
+            var sons = u.children();
+            fn(true);
+        })
+    }, 2000);
+    var fn ;
+    angular.module('myApp')
+            .component('menuList', {
+                template: "<ul class=' nav nav-sidebar'>" +
+                "<li data-id='fat' class='move fat-li' ng-repeat='m in $ctrl.menu '>" +
+                "<a href='#'>{{m.name}}</a>" +
+                "<ul class='son-ul'  >" +
+                "<li class='move' ng-if = '$ctrl.test'  ng-repeat='s in m.list'>" +
+                "{{s.name}}" +
+                "</li> </ul> </li> </ul>",
+                controller: ['$timeout', function ($timeout) {
+                    var self = this;
+                    this.test = false;
+//                    fn = function(value) {
+//                      slef.$apply(function(){
+//                        self.test = value;
+//                      });
+//                    };
+                    $timeout(function(){
+                        self.test = true;
+                    },3000);
+                    //console.log($timeout);
+                    $timeout(function () {
+                        self.menu = [
+                            {
+                                name: "档案管理",
+                                list: [
+                                    {name: "党员基本信息"},
+                                    {name: "党员发展材料"},
+                                    {name: "党员季度汇报"},
+                                    {name: "党员总结报告"},
+                                    {name: "档案转接审核"}
+                                ]
+                            },
+                            {
+                                name: "在线学习",
+                                list: [
+                                    {name: "党章党纪"},
+                                    {name: "国家政策"},
+                                    {name: "专题视频"}
+                                ]
+                            },
+                            {
+                                name: "新闻在线",
+                                list: [
+                                    {name: "公告信息"},
+                                    {name: "新闻发布"}
+                                ]
+                            },
+                            {
+                                name: "党员论坛",
+                                list: [
+                                    {name: "内容管理"},
+                                    {name: "评论管理"}
+                                ]
+                            },
+                            {
+                                name: "党员资料",
+                                list: [
+                                    {name: "说明"},
+                                    {name: "上传"}
+                                ]
+                            }
+                        ];
+                    }, 1);
+                }]
+            })
+
 </script>
 </html>

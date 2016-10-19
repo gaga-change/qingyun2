@@ -1,0 +1,20 @@
+.b-print-demo {
+    display: block;
+    font-size: 20px;
+    margin: 10px;
+}
+.b-print-demo-p {
+    margin-bottom: 10px;
+    border-color: black;
+}
+@media print {
+    .b-print-demo-p {
+        font-size: 20pt;
+    }
+    .b-print-demo-p-wrap {
+        page-break-inside: avoid !important;
+        orphans: 2;
+        widows: 2;
+    }
+
+}
