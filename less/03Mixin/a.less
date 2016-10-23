@@ -1,0 +1,22 @@
+@blue: blue;
+
+.font-color-blue {
+  color: @blue;
+  &:hover {
+    background-color: #fff;
+  }
+}
+
+
+
+
+
+#my-library {
+  .my-mixin() {
+    color: black;
+  }
+}
+// which can be used like this
+.class {
+  #my-library > .my-mixin();
+}

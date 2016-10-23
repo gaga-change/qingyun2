@@ -1,0 +1,11 @@
+
+.inline {
+  display: inline-block;
+}
+
+nav li {
+  &:extend(.inline);
+  color: yellow;
+}
+a:extend(nav li){  }
+.b:extend(a){}

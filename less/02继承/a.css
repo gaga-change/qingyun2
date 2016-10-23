@@ -1,0 +1,11 @@
+.inline,
+nav li,
+a,
+.b {
+  display: inline-block;
+}
+nav li,
+a,
+.b {
+  color: yellow;
+}

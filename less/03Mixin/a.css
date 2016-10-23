@@ -1,0 +1,9 @@
+.font-color-blue {
+  color: blue;
+}
+.font-color-blue:hover {
+  background-color: #fff;
+}
+.class {
+  color: black;
+}

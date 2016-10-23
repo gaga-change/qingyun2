@@ -235,7 +235,7 @@ var
 
 /**
  * documentMode is an IE-only property
- * http://msdn.microsoft.com/en-us/library/ie/cc196988(v=vs.85).aspx
+ * http://msdn.microsoft.com/en-us/library/ie/cc196988(_v.less=vs.85).aspx
  */
 msie = window.document.documentMode;
 
@@ -13646,7 +13646,7 @@ function $LocationProvider() {
 
       var absHref = elm.prop('href');
       // get the actual href attribute - see
-      // http://msdn.microsoft.com/en-us/library/ie/dd347148(v=vs.85).aspx
+      // http://msdn.microsoft.com/en-us/library/ie/dd347148(_v.less=vs.85).aspx
       var relHref = elm.attr('href') || elm.attr('xlink:href');
 
       if (isObject(absHref) && absHref.toString() === '[object SVGAnimatedString]') {
@@ -14786,7 +14786,7 @@ ASTCompiler.prototype = {
       var result = this.nextId();
       this.recurse(assignable, result);
       this.return_(result);
-      extra = 'fn.assign=' + this.generateFunction('assign', 's,v,l');
+      extra = 'fn.assign=' + this.generateFunction('assign', 's,_v.less,l');
     }
     var toWatch = getInputs(ast.body);
     self.stage = 'inputs';
