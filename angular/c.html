@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="" ng-cloak lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>title</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgradyour browser</a> to improve your experience.</p>
+<![endif]-->
+<div class="container-fluid">
+
+</div>
+
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+
+<script>
+	angular.module('myApp', [])
+			.controller('MyController', ['$scope', '$cacheFactory', function ($scope, $cacheFactory) {
+				// 创建一个$cacheFactory 对象
+				/**
+				 * 创建一个$cacaheFactory 对象
+				 * 参数: 缓存的名字
+				 */
+				var cache = $cacheFactroy('cacheId');
+				var cache = $cacheFactory('waige', {capacity: 20})
+			}])
+</script>
+
+</body>
+</html>

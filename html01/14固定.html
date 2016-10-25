@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title></title>
+	<meta name="description" content="">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+</head>
+<style>
+	html {
+		background: url("../img/carousel_one.jpg") fixed;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		/*margin-top: 200px;*/
+	}
+	body {height:100%;overflow:auto;margin: 0;}
+	.con {
+		width: 100%;
+		height: 5000px;
+		background-color: gray;
+	}
+	.fix {
+		position: fixed;
+		_position: absolute;
+		height: 200px ;
+		width: 100%;
+		/*top: 20px;*/
+		/*top: 10px;*/
+		background-color: AliceBLue;
+		/*-webkit-transform: translateZ(0);*/
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+		z-index: 10;
+	}
+	.tt {
+		position:relative;
+		/*top: 20px;*/
+		/*width: 100px;*/
+		height: 100px;
+		background-color: AliceBLue;
+		transition: all 1s ease-in-out;
+	}
+</style>
+<body>
+<div class="fix">
+	<div class="tt"></div>
+</div>
+
+
+	<div class="con">
+	</div>
+
+</body>
+</html>
