@@ -57,7 +57,10 @@
         x=Tween.Elastic.easeInOut(t,b,c,d);
         console.log(x);
         ball.style.left=x+"px";
-        if(t==100)t=-1;
+//        if(t==100)t=-1;
+        if(t == 100){
+            clearInterval(st);
+        }
     }
 </script>
 </html>

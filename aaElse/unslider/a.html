@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="" ng-cloak lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>title</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../bower_components/animate.css/animate.min.css">
+	<link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<style>
+		.carousel {
+			position: relative; overflow: auto;
+			width: 440px;
+			height: 220px;
+			border: 1px solid red;
+		}
+		.carousel li { list-style: none; }
+		.carousel ul {
+			padding: 0;
+			position: relative;
+		}
+		.carousel ul li {
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgradyour
+	browser</a> to improve your experience.</p>
+<![endif]-->
+<div class="container-fluid">
+
+</div>
+<div class="banner">
+	<ul class="clearfix slides">
+		<li>This is a slide.</li>
+		<li>This is another slide.</li>
+		<li>This is a final slide.</li>
+	</ul>
+</div>
+<div class="carousel" data-id="carousel">
+	<ul data-id="carousel-ul" style="left:0;">
+		<li><img src="../../img/carousel_one.jpg" alt=""></li>
+		<li><img src="../../img/carousel_two.jpg" alt=""></li>
+		<li><img src="../../img/carousel_three.jpg" alt=""></li>
+	</ul>
+</div>
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="unslider-min.js"></script>
+<script src="swiper.min.js"></script>
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../bower_components/angular/angular.min.js"></script>
+<script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+<script>
+	$('.carousel').unslider({
+		animation: 'fade',
+		autoplay: true,
+		delay: 3000,
+		arrows: false,
+		speed: 3000
+	});
+	var swiper = new Swiper('.carousel');
+</script>
+</body>
+</html>
