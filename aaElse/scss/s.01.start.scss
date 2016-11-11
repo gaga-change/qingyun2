@@ -1,0 +1,25 @@
+@import "colors.min.css";
+
+$fontSize: 13px !default;
+$fontSize: 12px;
+$lineHeight: 1.5;
+
+body {
+  $fontSize: 13px !global;
+  font-size: $fontSize/#{$lineHeight};
+}
+.cc {
+  font-size: $fontSize;
+  @at-root .gaga & {
+    //color: red;
+    @extend %h ;
+  }
+}
+
+%h {
+  color: red;
+}
+
+h3 {
+  @extend %h;
+}

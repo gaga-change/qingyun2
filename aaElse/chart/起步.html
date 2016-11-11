@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Radar Chart</title>
+	<script src="Chart.min.js"></script>
+	<script src="http://localhost:8080/js/lib/jquery.min.js"></script>
+	<style>
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
+</head>
+
+<body>
+<div style="width:75%">
+	<canvas id="canvas"></canvas>
+</div>
+<button id="randomizeData">Randomize Data</button>
+<button id="addDataset">Add Dataset</button>
+<button id="removeDataset">Remove Dataset</button>
+<button id="addData">Add Data</button>
+<button id="removeData">Remove Data</button>
+<script>
+	//水机产出数据  0-100
+	var randomScalingFactor = function() {
+		return Math.round(Math.random() * 100);
+	};
+	//数据产生颜色 0-255
+	var randomColorFactor = function() {
+		return Math.round(Math.random() * 255);
+	};
+	//获取随机颜色
+	var randomColor = function(opacity) {
+		return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+	};
+
+	var config = {
+		type: 'radar',
+		data: {
+			labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+			datasets: [{
+				label: "前端",
+				backgroundColor: "rgba(220,220,220,0.2)",
+				pointBackgroundColor: "rgba(220,220,220,1)",
+				data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+			}]
+		},
+		options: {
+			legend: {
+				position: 'top',
+			},
+			title: {
+				display: true,
+				text: '技能表'
+			},
+			scale: {
+				reverse: false,
+				gridLines: {
+					color: ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+				},
+				ticks: {
+					beginAtZero: true
+				}
+			}
+		}
+	};
+
+	window.onload = function() {
+		window.myRadar = new Chart(document.getElementById("canvas"), config);
+	};
+</script>
+</body>
+
+</html>

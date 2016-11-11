@@ -5,3 +5,6 @@ bower_components/
 tmp
 .DS_Store
 .idea
+test.html
+test.less
+test.js
