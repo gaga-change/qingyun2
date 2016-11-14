@@ -19,6 +19,8 @@
     "less": "X.X.X",
     "unslider": "X.X.X",
     "ui-router": "X.X.X",
-    "requirejs": "X.X.X"
+    "requirejs": "X.X.X",
+    "react" : "X.X.X",
+    "browser" : "X.X.X"
   }
 }
